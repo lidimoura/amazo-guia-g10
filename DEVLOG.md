@@ -1,77 +1,44 @@
-# DEVLOG — Amazô.guia do Encontro d’água Hub
+# DEVLOG — Amazô.guia
 
-## Registro 001 — Fundação documental do repositório
+## Registro 001 — Fundação documental
 
 **Data:** 20 de agosto de 2026  
-**Status:** Rascunho para aprovação da autora; ainda não incorporado ao repositório oficial.
+**Status:** Commit inicial realizado; revisão de concisão pendente.
 
-### Objetivo
+### Decisão
 
-Preparar a fundação documental do repositório do Challenge Alura Agente — ONE IA for Tech G10, apresentando a evolução da Amazô para **Amazô.guia do Encontro d’água Hub**.
+Criar a Amazô.guia como evolução da Amazô Typebot: uma agente SDR-RAG, representante e guia digital do Encontro d’água Hub.
 
-### Autoria e responsabilidade
+O projeto é de autoria e propriedade de **Lídi Moura**, analista de dados, IA e automações e fundadora do Hub. Ela mantém autonomia sobre escopo, produto, decisões técnicas, configurações, curadoria, testes e responsabilidade final.
 
-O projeto é de autoria e propriedade de **Lídi Moura**, analista de dados, IA e automações, criadora de soluções tecnológicas e fundadora do Encontro d’água Hub. Lídi mantém autonomia sobre produto, escopo, decisões técnicas, configurações, curadoria das fontes, validação e responsabilidade final.
+O Hub OS NEXUS é utilizado como infraestrutura metodológica e operacional já validada em projetos pessoais e freelas do Hub, para aumentar agilidade e qualidade. Seu uso não substitui a autoria de Lídi nem delega decisões à ferramenta.
 
-O Hub OS NEXUS, utilizado no contexto da holding AI-Native Encontro d’água Hub, atua como infraestrutura metodológica e operacional para aumentar agilidade, organização e qualidade. O Hub OS já foi validado em projetos pessoais e trabalhos freelance do próprio Hub, mas não substitui a autoria da Lídi nem toma decisões autônomas sobre o produto.
+### Identidade visual
 
-### Decisões aprovadas até aqui
+Foram aprovados dois ativos para o repositório: `assets/amazo-guia-avatar.jpeg`, nova ilustração da Amazô, e `assets/samambaia-amazonas.webp`, fotografia autoral de Lídi Moura no Amazonas. A paleta visual é `#391E13`, `#648D3C`, `#D7F993`, `#D9AAA1` e `#3E2128`, aplicada como referência para futuras interfaces e materiais do produto.
 
-| Tema | Decisão |
+### Escopo aprovado
+
+| Item | Decisão |
 |---|---|
-| Produto | Amazô.guia do Encontro d’água Hub |
-| Posicionamento | Agente/chatbot SDR-RAG, representante e guia digital |
-| Pitch | “Tecnologia acessível e sustentável.” |
-| Origem | Evolução do showcase Typebot da Amazô |
-| LLM | Google Gemini, configurado por variável de ambiente |
-| Fontes de verdade | Documentos institucionais e comerciais a serem enviados após consolidação no Perplexity |
-| Curadoria | Perplexity/Google Drive para preparação e revisão; Lídi aprova antes da indexação |
-| Armazenamento futuro | OCI Object Storage privado como opção controlada |
-| Backend vetorial | Local para aprendizado/fallback; OCI Autonomous AI Database como opção posterior |
-| Integrações | Link d’Água e CRM somente como roadmap; nenhum acesso produtivo no MVP |
-| Automação | n8n fora do MVP |
-| Ambiente pedagógico | Colab/local; Antigravity pode ser usado como IDE auxiliar sob revisão |
-| Meta de entrega | Até 22 de agosto de 2026, usando o dia 24 como prazo oficial informado a reconfirmar |
+| LLM | Google Gemini por variável de ambiente |
+| RAG | Primeiro com fontes aprovadas e execução local |
+| Fontes | Documentos do Perplexity, ainda pendentes de envio e revisão |
+| Armazenamento | OCI Object Storage privado como opção futura |
+| Banco vetorial | Avaliação posterior do Autonomous AI Database |
+| Canais | WhatsApp, portfólio, LP, Link d’Água, CRM ou outro link público aprovado |
+| Integrações | Handoff automático somente no roadmap |
+| n8n | Fora do MVP |
+| Showcase | Repositório Typebot separado, citado como origem |
 
-### Escopo deste primeiro incremento
+### Governança
 
-O primeiro incremento oficial deverá conter **somente dois arquivos reais**:
+Nenhum documento comercial, valor, dado de lead, credencial ou fonte privada será inventado ou indexado antes da aprovação de Lídi. O MVP não acessará Supabase, CRM ou dados produtivos diretamente. A agente poderá apresentar um canal público, mas não afirmará que registrou um lead sem integração validada.
 
-- `README.md`, com identidade, origem, proposta, fontes, escopo, segurança, transparência e roadmap;
-- `DEVLOG.md`, com o registro das decisões e do método incremental.
+### Método
 
-Não serão criados neste incremento `.gitignore`, `.env.example`, `requirements.txt`, pastas, notebooks, módulos Python, fixtures, PDFs, índices, imagens, documentos de tradução ou arquivos auxiliares.
+A construção seguirá incrementos funcionais e pedagógicos, sem arquivos vazios: fontes, ingestão, RAG local, testes, interface, documentação e infraestrutura. Cada alteração será acompanhada por escopo, diff, validação e aprovação.
 
-### Fontes do RAG
+### Estado
 
-Os documentos de fonte de verdade ainda serão enviados por Lídi Moura. Eles não serão inventados, substituídos ou indexados antecipadamente. Antes de qualquer ingestão, deverão ser revisados quanto a autoria, versão, vigência, visibilidade, PII, valores, processos, permissões e aprovação.
-
-O Google Drive/Perplexity será documentado como camada de elaboração e curadoria. O OCI Object Storage privado poderá ser adotado depois como camada de armazenamento controlado e reprodutível. A criação do bucket, configuração de IAM, upload, eventual URL pré-autenticada, custos e integração com o Autonomous AI Database serão tarefas separadas e dependerão de validação e aprovação.
-
-### Showcase de origem
-
-O repositório [amazo.ia-showcase](https://github.com/lidimoura/amazo.ia-showcase) e sua [LP pública](https://lidimoura.github.io/amazo.ia-showcase/) serão citados como origem da evolução da Amazô. Eles não serão copiados para este repositório nem apresentados como se já contivessem a implementação RAG do Challenge.
-
-### Roteamento para canais públicos
-
-A Amazô.guia poderá apresentar o canal adequado conforme a intenção do visitante: WhatsApp do Hub, WhatsApp pessoal de Lídi Moura, portfólio, LP institucional do Hub, Link d’Água, CRM ou outro link público aprovado. Os links deverão vir de configuração ou documento autorizado. O MVP poderá exibir o canal, mas não deverá afirmar que registrou ou encaminhou automaticamente um lead enquanto não existir uma integração validada.
-
-### Transparência sobre ferramentas
-
-A documentação informará que Manus AI, Gemini, Perplexity, Google Colab e Antigravity são ferramentas complementares do processo. Cada ferramenta tem uma função de apoio; a autoria, as decisões, as configurações, a curadoria, os testes e a responsabilidade final permanecem com Lídi Moura.
-
-### Segurança e limites
-
-O projeto seguirá tolerância zero a hardcode de segredos. Não serão incluídos tokens, senhas, wallets, credenciais, PII desnecessária, prompts internos, fontes privadas ou dados de produção. O agente deverá ser testado contra prompt injection, perguntas fora do escopo e tentativas de extração de instruções internas.
-
-### Método de trabalho
-
-Cada incremento será pequeno e acompanhado por escopo, justificativa, diff, teste, resultado, limitação e aprovação. Nenhum arquivo será criado apenas para preencher uma estrutura futura. A ordem pedagógica priorizará entendimento e autonomia: fontes aprovadas, ingestão, chunking, embeddings, recuperação, geração com Gemini, citações, testes, interface e somente depois infraestrutura ou integrações.
-
-### Referências públicas e privacidade documental
-
-O README e o DEVLOG manterão apenas links públicos do ecossistema do Hub e do showcase que tenham sido autorizados. Links privados, documentos internos e referências usadas exclusivamente para o processo de criação do Challenge não serão publicados sem consentimento explícito de Lídi Moura.
-
-### Próxima etapa pendente de aprovação
-
-Após a aprovação deste conteúdo, criar o repositório privado do Challenge e incorporar somente `README.md` e `DEVLOG.md`. Antes do primeiro commit, apresentar o diff e confirmar que não existem outros arquivos ou artefatos no escopo oficial.
+O primeiro commit contém somente `README.md` e `DEVLOG.md`. Este incremento adiciona apenas os dois ativos visuais aprovados e atualiza os documentos para a versão concisa. Nenhum código de RAG, interface, notebook ou integração será criado nesta etapa.
