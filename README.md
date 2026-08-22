@@ -23,6 +23,10 @@ Este projeto evolui o showcase Typebot da Amazô, mantido separadamente:
 
 O showcase representa a origem visual e conversacional; este repositório representa a evolução técnica para RAG.
 
+## Showcase do Challenge
+
+A [LP pública do Showcase Amazô G10](https://lidimoura.github.io/amazo-g10-showcase/) apresenta a narrativa visual, a arquitetura proposta, o método de trabalho e as evidências em curadoria. Ela **não substitui** o código, as fontes autorizadas, os testes ou a documentação técnica deste repositório.
+
 ## Identidade visual
 
 A identidade combina referências amazônicas, tecnologia acessível e sustentabilidade. A ilustração da Amazô é o avatar principal; a fotografia da samambaia, feita por Lídi Moura no Amazonas, representa território e autoria.
@@ -70,7 +74,7 @@ Os documentos de fonte de verdade serão preparados no Perplexity, revisados por
 
 O projeto é de autoria e propriedade de **Lídi Moura**, que mantém autonomia sobre produto, escopo, decisões técnicas, configurações, fontes, testes e responsabilidade final.
 
-O **Hub OS NEXUS** é utilizado como infraestrutura metodológica e operacional da holding para aumentar agilidade, organização e qualidade. Seu uso, já validado em projetos pessoais e freelas do Hub, não substitui a autoria nem delega decisões à ferramenta. Manus AI, Gemini, Perplexity, Colab e Antigravity são ferramentas complementares; a curadoria e a validação permanecem com Lídi.
+O **Hub OS** é utilizado como infraestrutura metodológica e operacional da holding para aumentar agilidade, organização e qualidade. Seu uso, já validado em projetos pessoais e freelas do Hub, não substitui a autoria nem delega decisões à ferramenta. Manus AI, Gemini, Perplexity, Colab e Antigravity são ferramentas complementares; a curadoria e a validação permanecem com Lídi.
 
 ## Segurança e próximos passos
 
@@ -83,7 +87,7 @@ O projeto está em **fundação documental**. O primeiro incremento contém `REA
 - [Encontro d’água Hub](https://hub.encontrodagua.com)
 - [Link d’Água](https://link.encontrodagua.com/vitrine)
 - [GitHub da Lídi Moura](https://github.com/lidimoura)
-- [Hub OS NEXUS](https://github.com/lidimoura/hub-os-nexus)
+- [Hub OS](https://github.com/lidimoura/Hub_OS) *(repositório oficial com acesso restrito)*
 
 ---
 
