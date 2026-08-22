@@ -1,0 +1,37 @@
+schema_version: 1
+
+# Arquivo público, curto e revisado pela CEO.
+# Não incluir conteúdos de documentos, URLs privadas, dados de clientes,
+# credenciais, prompts internos ou informações operacionais confidenciais.
+
+project:
+  name: "Amazô.guia"
+  challenge: "G10"
+  phase: "fundacao_documental"
+  public_summary: "MVP acadêmico de agente SDR-RAG em construção."
+
+rag:
+  source_catalog_status: "em_construcao"
+  approved_document_groups: []
+  allowed_catalog_groups:
+    - "governanca"
+    - "trajetoria"
+    - "encontro-dagua-hub"
+    - "hub-os"
+    - "produtos"
+    - "servicos"
+    - "regras-de-negocio"
+    - "processos"
+    - "portfolio"
+  ingestion_status: "nao_iniciada"
+  test_status: "nao_iniciado"
+
+showcase:
+  update_required: true
+  update_reason: "Registrar a fundação documental e o catálogo de fonte de verdade em construção."
+  public_evidence: []
+
+governance:
+  review_status: "aguardando_revisao_da_ceo"
+  owner: "Lídi Moura"
+  publication_rule: "Toda atualização pública exige aprovação explícita da CEO."
