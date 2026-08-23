@@ -32,18 +32,19 @@ A [LP pública do Showcase Amazô G10](https://lidimoura.github.io/amazo-g10-sho
 A identidade combina referências amazônicas, tecnologia acessível e sustentabilidade. A ilustração da Amazô é o avatar principal; a fotografia da samambaia, feita por Lídi Moura no Amazonas, representa território e autoria.
 
 <p align="center">
-  <img src="./assets/amazo-guia-avatar.jpeg" alt="Ilustração da Amazô.guia" width="220">
+  <img src="./assets/amazo-guia-avatar-g10.png" alt="Ilustração da Amazô.guia — Challenge G10" width="220">
 </p>
 
 | Cor | Hex | Uso |
 |---|---|---|
-| Marrom profundo | `#391E13` | Texto e base terrosa |
-| Verde folha | `#648D3C` | Elementos naturais |
-| Verde-lima claro | `#D7F993` | Destaques e estados ativos |
-| Rosa-terra | `#D9AAA1` | Acolhimento e detalhes humanos |
+| Marrom profundo | `#2C1B12` | Background principal |
+| Verde folha | `#2D4F1E` | Sidebar e containers |
+| Verde-lima | `#A3C944` | Fontes e destaques |
+| Rosa-terra | `#D48166` | Botões de ação |
 | Vinho escuro | `#3E2128` | Profundidade e contraste |
 
 > Fotografia autoral: [samambaia-amazonas.webp](./assets/samambaia-amazonas.webp), registrada por Lídi Moura no Amazonas.
+
 
 ## MVP
 

@@ -7,12 +7,21 @@ schema_version: 1
 project:
   name: "Amazô.guia"
   challenge: "G10"
-  phase: "fundacao_documental"
-  public_summary: "MVP acadêmico de agente SDR-RAG em construção."
+  phase: "implementacao_mvp"
+  public_summary: "MVP de agente SDR-RAG com LangGraph, Gemini e Streamlit em construção ativa."
 
 rag:
-  source_catalog_status: "em_construcao"
-  approved_document_groups: []
+  source_catalog_status: "aprovado"
+  approved_document_groups:
+    - "perfil-lidi-moura"
+    - "trajetoria"
+    - "encontro-dagua-hub"
+    - "catalogo-produtos-servicos"
+    - "canais-e-roteamento"
+    - "amazo-guia"
+    - "faq-publico"
+    - "formacao-ferramentas"
+    - "projetos-portfolio"
   allowed_catalog_groups:
     - "governanca"
     - "trajetoria"
@@ -23,15 +32,22 @@ rag:
     - "regras-de-negocio"
     - "processos"
     - "portfolio"
-  ingestion_status: "nao_iniciada"
+  ingestion_status: "em_desenvolvimento"
   test_status: "nao_iniciado"
+  stack:
+    llm: "Gemini 2.0 Flash"
+    embeddings: "all-MiniLM-L6-v2"
+    vector_store: "InMemoryVectorStore"
+    orchestration: "LangGraph ReAct"
+    interface: "Streamlit"
+    deploy: "Streamlit Cloud"
 
 showcase:
   update_required: true
-  update_reason: "Registrar a fundação documental e o catálogo de fonte de verdade em construção."
+  update_reason: "Registrar transição para implementação ativa do MVP: stack definida, fontes aprovadas, pipeline RAG em construção."
   public_evidence: []
 
 governance:
-  review_status: "aguardando_revisao_da_ceo"
+  review_status: "em_execucao_com_aprovacao_da_ceo"
   owner: "Lídi Moura"
   publication_rule: "Toda atualização pública exige aprovação explícita da CEO."
