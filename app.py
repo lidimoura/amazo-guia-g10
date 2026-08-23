@@ -112,18 +112,15 @@ def carregar_pipeline():
 
     # Garante que a API key está disponível
     # Streamlit Cloud: usa st.secrets; local: usa .env via load_dotenv()
+    # IMPORTANTE: use uma key do Google AI Studio (aistudio.google.com/apikey)
     google_api_key = st.secrets.get("GOOGLE_API_KEY", os.getenv("GOOGLE_API_KEY"))
     if not google_api_key:
-        st.error("⚠️ GOOGLE_API_KEY não encontrada. Configure nos Secrets do Streamlit ou no .env local.")
+        st.error("⚠️ GOOGLE_API_KEY não encontrada. Configure nos Secrets do Streamlit.")
         st.stop()
 
-    # Validação básica do formato da key (keys Google AI Studio começam com "AIza")
     google_api_key = google_api_key.strip()
-    if not google_api_key.startswith("AIza") or len(google_api_key) < 30:
-        st.error(
-            f"⚠️ GOOGLE_API_KEY parece inválida (comprimento: {len(google_api_key)} chars). "
-            "Verifique se está completa e sem espaços extras nos Secrets."
-        )
+    if len(google_api_key) < 20:
+        st.error(f"⚠️ GOOGLE_API_KEY parece inválida ({len(google_api_key)} chars). Verifique nos Secrets.")
         st.stop()
 
     os.environ["GOOGLE_API_KEY"] = google_api_key
