@@ -90,10 +90,22 @@ def run_agent(agent, user_message: str, history: list = None) -> str:
         + contexto
     )
 
-    # 4. Chamada direta ao LLM
+    # 4. Chamada ao LLM com fallback automático
     messages = [
         SystemMessage(content=system_com_contexto),
         HumanMessage(content=user_message),
     ]
-    resposta = llm.invoke(messages)
-    return resposta.content
+    try:
+        resposta = llm.invoke(messages)
+        return resposta.content
+    except Exception as exc:
+        print(f"[agent] Erro com {PRIMARY_LLM_MODEL}: {exc}. Tentando fallback {FALLBACK_LLM_MODEL}...")
+        groq_api_key = os.environ.get("GROQ_API_KEY")
+        fallback_llm = ChatGroq(
+            model=FALLBACK_LLM_MODEL,
+            groq_api_key=groq_api_key,
+            temperature=0.3,
+        )
+        resposta = fallback_llm.invoke(messages)
+        return resposta.content
+

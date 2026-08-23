@@ -24,10 +24,10 @@ COLORS = {
 }
 
 # === Modelos (Groq) ===
-# llama-3.1-8b-instant: modelo estavel no Groq free tier, sem restricao de acesso
-# llama3-8b-8192: fallback classico sempre disponivel
-PRIMARY_LLM_MODEL = "llama-3.1-8b-instant"
-FALLBACK_LLM_MODEL = "llama3-8b-8192"
+# openai/gpt-oss-120b: modelo avancado e ativo no Groq
+# openai/gpt-oss-20b: modelo leve e ultra-rapido
+PRIMARY_LLM_MODEL = "openai/gpt-oss-120b"
+FALLBACK_LLM_MODEL = "openai/gpt-oss-20b"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # === Retriever ===
