@@ -94,10 +94,12 @@ def build_agent(retriever):
     llm_with_fallback = primary_llm.with_fallbacks([fallback_llm])
 
     # Agente ReAct compilado pelo LangGraph
+    # Nota: 'state_modifier' é o parâmetro correto nas versões LangGraph 0.2.x+
+    # (o parâmetro 'prompt' foi depreciado/renomeado)
     agent = create_react_agent(
         model=llm_with_fallback,
         tools=[pega_contexto],
-        prompt=AMAZO_SYSTEM_PROMPT,
+        state_modifier=AMAZO_SYSTEM_PROMPT,
     )
 
     print(f"[agent] Agente criado com {PRIMARY_LLM_MODEL} + fallback {FALLBACK_LLM_MODEL}")

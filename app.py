@@ -113,7 +113,7 @@ a:hover {
 
 # === Carregamento do pipeline RAG (cacheado) ===
 # cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v3.0-groq-llama31"
+CACHE_VERSION = "v3.1-groq-state-modifier"
 
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
 def carregar_pipeline(cache_version=CACHE_VERSION):
