@@ -24,10 +24,10 @@ COLORS = {
 }
 
 # === Modelos (Groq) ===
-# gemma2-9b-it: modelo open-source Google, gratuito no Groq, sem problemas de deprecacao
-# llama-3.1-8b-instant: fallback leve e rapido
-PRIMARY_LLM_MODEL = "gemma2-9b-it"
-FALLBACK_LLM_MODEL = "llama-3.1-8b-instant"
+# llama-3.1-8b-instant: modelo estavel no Groq free tier, sem restricao de acesso
+# llama3-8b-8192: fallback classico sempre disponivel
+PRIMARY_LLM_MODEL = "llama-3.1-8b-instant"
+FALLBACK_LLM_MODEL = "llama3-8b-8192"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # === Retriever ===
