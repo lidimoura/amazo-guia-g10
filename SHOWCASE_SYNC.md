@@ -14,6 +14,18 @@ O arquivo [`showcase-status.yml`](./showcase-status.yml) é o contrato público 
 | `rag.ingestion_status` e `rag.test_status` | Atualiza arquitetura, QA e evidências. | Publicar somente após validação registrada. |
 | `showcase.public_evidence` | Habilita prints, vídeos, logs sanitizados ou métricas aprovadas. | Nunca incluir PII, segredos ou dados de clientes. |
 
+## Estado atual (23/08/2026)
+
+| Item | Status |
+|---|---|
+| Deploy | ✅ Ativo — https://amazo-guia-g10.streamlit.app/ |
+| LLM | ✅ Groq / Llama 3.1 70B (migrado de Gemini) |
+| Fontes (.md) | ✅ 9 documentos aprovados e ingeridos |
+| Fontes (PDF) | ✅ 9 PDFs gerados com links clicáveis |
+| Notebook Colab | ✅ notebooks/amazo_sandbox.ipynb |
+| QA / Prints | ⏳ Pendente validação e captura de evidências |
+| Showcase LP | ⏳ Aguardando aprovação da CEO após QA |
+
 ## Regra de mudança
 
 1. Atualize o manifesto e o DEVLOG técnico com o fato verificável.

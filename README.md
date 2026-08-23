@@ -2,7 +2,7 @@
 
 ![Status](https://img.shields.io/badge/Status-MVP%20Funcional-brightgreen)
 ![Projeto](https://img.shields.io/badge/Projeto-Amazô.guia-blue)
-![LLM](https://img.shields.io/badge/LLM-Gemini-green)
+![LLM](https://img.shields.io/badge/LLM-Groq%20Llama%203.1-orange)
 ![RAG](https://img.shields.io/badge/Arquitetura-RAG-purple)
 ![Deploy](https://img.shields.io/badge/Deploy-Streamlit%20Cloud-red)
 
@@ -64,14 +64,14 @@ Usuário → Streamlit Chat → LangGraph ReAct Agent
                                 ↓
                     data/sources/public/*.md (10 docs v2.1)
 
-LLM: Gemini 1.5 Flash → fallback Gemini 1.5 Flash 8B
+LLM: Llama 3.1 70B Versatile (Groq) → fallback Llama 3.1 8B Instant
 ```
 
 ## Stack
 
 | Camada | Tecnologia | Justificativa |
 |---|---|---|
-| LLM | Gemini 1.5 Flash + fallback 1.5 Flash 8B | Performance + custo zero + ecossistema Google |
+| LLM | Llama 3.1 70B Versatile (Groq) | Free tier generoso, sem restrições regionais, baixa latência |
 | Embeddings | `all-MiniLM-L6-v2` (HuggingFace) | Leve (~80 MB), roda em CPU, free tier compatível |
 | Vector Store | `InMemoryVectorStore` (LangChain) | Simplicidade para MVP read-only |
 | Orquestração | LangGraph ReAct | Raciocínio + ação dinâmica com tool |
@@ -160,7 +160,7 @@ pip install -r requirements.txt
 
 # 3. Configure a API key
 cp .env.example .env
-# Edite .env e adicione sua GOOGLE_API_KEY
+# Edite .env e adicione sua GROQ_API_KEY (console.groq.com/keys)
 
 # 4. Execute o app
 streamlit run app.py
@@ -176,7 +176,7 @@ Para replicar o deploy:
 2. Acesse [share.streamlit.io](https://share.streamlit.io) e conecte o repo
 3. Em **Settings → Secrets**, adicione:
    ```toml
-   GOOGLE_API_KEY = "sua-chave-aqui"
+   GROQ_API_KEY = "gsk_..."
    ```
 4. Aguarde o deploy — a URL pública estará disponível em poucos minutos
 

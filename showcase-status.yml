@@ -8,7 +8,7 @@ project:
   name: "Amazô.guia"
   challenge: "G10"
   phase: "mvp_funcional"
-  public_summary: "MVP funcional de agente SDR-RAG com LangGraph, Gemini e Streamlit. Deploy público ativo."
+  public_summary: "MVP funcional entregue. Agente SDR-RAG com LangGraph, Groq (Llama 3.1) e Streamlit. Deploy público ativo."
 
 rag:
   source_catalog_status: "aprovado"
@@ -22,21 +22,11 @@ rag:
     - "faq-publico"
     - "formacao-ferramentas"
     - "projetos-portfolio"
-  allowed_catalog_groups:
-    - "governanca"
-    - "trajetoria"
-    - "encontro-dagua-hub"
-    - "hub-os"
-    - "produtos"
-    - "servicos"
-    - "regras-de-negocio"
-    - "processos"
-    - "portfolio"
   ingestion_status: "concluido"
-  test_status: "qa_basico_realizado"
+  test_status: "qa_basico_pendente_validacao"
   stack:
-    llm: "Gemini 2.0 Flash"
-    fallback_llm: "Gemini 1.5 Flash"
+    llm: "Llama 3.1 70B Versatile (Groq)"
+    fallback_llm: "Llama 3.1 8B Instant (Groq)"
     embeddings: "all-MiniLM-L6-v2"
     vector_store: "InMemoryVectorStore"
     orchestration: "LangGraph ReAct"
@@ -47,14 +37,16 @@ deploy:
   url: "https://amazo-guia-g10.streamlit.app/"
   platform: "Streamlit Cloud"
   status: "ativo"
+  secret: "GROQ_API_KEY (via st.secrets)"
 
 showcase:
-  update_required: false
-  update_reason: "MVP funcional entregue com deploy público ativo. README atualizado com exemplos e evidências."
+  update_required: true
+  update_reason: "Migração LLM Gemini → Groq documentada. Deploy ativo confirmado. Stack final definida. Aguardando validação QA e prints de evidência para publicação."
   public_evidence:
     - "Deploy público: https://amazo-guia-g10.streamlit.app/"
+    - "Repositório: https://github.com/lidimoura/amazo-guia-g10"
 
 governance:
-  review_status: "entrega_challenge_realizada"
+  review_status: "entrega_challenge_realizada_pendente_qa_e_evidencias"
   owner: "Lídi Moura"
   publication_rule: "Toda atualização pública exige aprovação explícita da CEO."

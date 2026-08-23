@@ -99,37 +99,50 @@ Estrutura de código (`src/`), dependências, configuração de tema e seguranç
 ## Registro 003 — Entrega do Challenge G10
 
 **Data:** 23 de agosto de 2026  
-**Status:** MVP funcional; entrega realizada.
+**Status:** MVP funcional entregue. Deploy público ativo.
 
-### Correções críticas
+### Redesign da Sidebar
 
-O modelo LLM foi atualizado de `gemini-1.5-flash` / `gemini-1.5-flash-8b` para `gemini-2.0-flash` + fallback `gemini-1.5-flash`. O parâmetro `transport="rest"` foi removido do `ChatGoogleGenerativeAI` — era a causa raiz do erro `NotFound` na API Gemini no Streamlit Cloud. A cadeia de fallback foi simplificada para 2 níveis (primário + fallback).
-
-### Sidebar — redesign
-
-A sidebar foi redesenhada para focar no projeto:
+A sidebar foi redesenhada para focar no projeto e não duplicar o papel da Amazô:
 - Removidos emojis dos links e botões
-- Removidos links do Hub (a Amazô já os fornece nas respostas)
-- Adicionada descrição do projeto e referência ao Challenge G10
-- Mantidos apenas links do repositório GitHub e do Showcase LP
-- CSS atualizado: links em verde temático (#A3C944) em vez do azul padrão
+- Removidos links do Hub (a Amazô os fornece nas respostas — sidebar seria redundância)
+- Adicionada descrição do projeto com referência ao Challenge G10 / ONE / Oracle Next Education
+- Mantidos apenas links do Repositório GitHub e da LP Showcase
+- CSS atualizado: links em verde temático `#A3C944` em vez do azul padrão do Streamlit
+
+### Migração de LLM: Google Gemini → Groq
+
+**Diagnóstico:** O erro `google.api_core.exceptions.NotFound` persistia mesmo após trocar os nomes dos modelos. A causa raiz foi identificada: a `GOOGLE_API_KEY` disponível começa com `AQ.Ab`, que é um **OAuth2 token**, não uma API key do Google AI Studio. Keys válidas do AI Studio começam com `AIza`. O `langchain_google_genai` não aceita OAuth2 tokens nesse contexto.
+
+**Decisão:** Migrar para **Groq** como provedor LLM — mais rápido, free tier generoso, sem restrições regionais, sem dependência de tipo de credencial Google.
+
+| Antes | Depois |
+|---|---|
+| `langchain-google-genai` | `langchain-groq` |
+| `google-generativeai` | — (removido) |
+| `gemini-2.0-flash` → `gemini-1.5-flash` | `llama-3.1-70b-versatile` |
+| `gemini-1.5-flash` (fallback) | `llama-3.1-8b-instant` (fallback) |
+| `GOOGLE_API_KEY` | `GROQ_API_KEY` |
+
+**Arquivos alterados:** `requirements.txt`, `src/config.py`, `src/agent.py`, `app.py`, `.env.example`
 
 ### Documentação para entrega
 
 | Artefato | Ação |
 |---|---|
-| README.md | Atualizado com URL de deploy, exemplos de Q&A, badge "MVP Funcional", seção de evidências |
-| notebooks/amazo_sandbox.ipynb | Criado a partir do .py para visualização no GitHub e uso no Colab |
-| data/sources/pdf/ | PDFs gerados externamente a partir dos .md para atendimento ao requisito do edital |
+| README.md | URL de deploy, exemplos Q&A, badge "MVP Funcional", seção de evidências, menção aos PDFs |
+| notebooks/amazo_sandbox.ipynb | Criado a partir do .py para visualização no GitHub e execução no Colab |
+| data/sources/pdf/ | 9 PDFs gerados com Unicode + links clicáveis para atendimento ao edital |
 | DEVLOG.md | Registro 003 adicionado |
-| showcase-status.yml | Atualizado para refletir MVP funcional |
+| showcase-status.yml | Atualizado para `mvp_funcional`, deploy ativo, Groq como LLM |
 
-> **Decisão:** O script auxiliar de geração de PDFs (`scripts/generate_pdfs.py`) foi removido do repositório após gerar os 9 arquivos. Os PDFs são artefatos estáticos de evidência e não precisam de pipeline automatizado no escopo do MVP. Código limpo > código inútil.
+> **Decisão:** O script de geração de PDFs (`scripts/generate_pdfs.py`) foi usado para gerar os artefatos e removido do repositório. PDFs são estáticos — pipeline automatizado não agrega valor no escopo do MVP. Código limpo > código inútil.
 
 ### Deploy
 
-Deploy público ativo em: https://amazo-guia-g10.streamlit.app/
+- **URL:** https://amazo-guia-g10.streamlit.app/
+- **Plataforma:** Streamlit Cloud (aceita conforme a live do Challenge como alternativa à OCI)
+- **Secrets configurados:** `GROQ_API_KEY` via `st.secrets`
+- **Cache version:** `v3.0-groq-llama31`
 
-Plataforma: Streamlit Cloud (alternativa à OCI, aceita conforme a live do Challenge).
-API key configurada via `st.secrets`.
 
