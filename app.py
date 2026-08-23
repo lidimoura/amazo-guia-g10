@@ -113,7 +113,7 @@ a:hover {
 
 # === Carregamento do pipeline RAG (cacheado) ===
 # cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v3.3-groq-llama33"
+CACHE_VERSION = "v3.4-groq-emoji-avatar"
 
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
 def carregar_pipeline(cache_version=CACHE_VERSION):
@@ -127,6 +127,7 @@ def carregar_pipeline(cache_version=CACHE_VERSION):
     Returns:
         Agente LangGraph compilado e pronto para receber mensagens.
     """
+    print("[pipeline] Iniciando carregamento do pipeline RAG...")
     from src.ingest import load_documents
     from src.embeddings import get_embedding_model
     from src.vector_store import build_vector_store, get_retriever
@@ -232,7 +233,7 @@ if "messages" not in st.session_state:
 
 # === Renderiza histórico ===
 for msg in st.session_state.messages:
-    avatar = "assets/amazo-guia-avatar-g10.png" if msg["role"] == "assistant" else None
+    avatar = "🌿" if msg["role"] == "assistant" else None
     with st.chat_message(msg["role"], avatar=avatar):
         st.markdown(msg["content"])
 
@@ -245,7 +246,7 @@ if prompt := st.chat_input("Fale com a Amazô.guia..."):
         st.markdown(prompt)
 
     # Gera resposta do agente
-    with st.chat_message("assistant", avatar="assets/amazo-guia-avatar-g10.png"):
+    with st.chat_message("assistant", avatar="🌿"):
         with st.spinner("🌿"):
             # Converte histórico para formato LangGraph
             history = [
