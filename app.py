@@ -88,13 +88,32 @@ hr {
 .stChatInputContainer {
     border-top: 1px solid rgba(163, 201, 68, 0.2);
 }
+
+/* Links: cor temática (verde-lima) em vez do azul padrão */
+a, a:visited, a:hover, a:active,
+.stMarkdown a, .stMarkdown a:visited {
+    color: #A3C944 !important;
+    text-decoration: none;
+}
+a:hover {
+    opacity: 0.85;
+    text-decoration: underline !important;
+}
+
+/* Descrição do projeto na sidebar */
+.projeto-desc {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #A3C944;
+    opacity: 0.85;
+}
 </style>
 """, unsafe_allow_html=True)
 
 
 # === Carregamento do pipeline RAG (cacheado) ===
 # cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v1.3-gemini15flash"
+CACHE_VERSION = "v2.0-gemini20flash"
 
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
 def carregar_pipeline(cache_version=CACHE_VERSION):
@@ -139,24 +158,34 @@ def carregar_pipeline(cache_version=CACHE_VERSION):
 
 # === Sidebar ===
 with st.sidebar:
-    st.markdown('<div class="sidebar-title">🌿 Amazô.guia</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sidebar-title">Amazô.guia</div>', unsafe_allow_html=True)
     st.markdown('<div class="sidebar-subtitle">Agente SDR-RAG · Encontro d\'Água Hub</div>', unsafe_allow_html=True)
 
     st.image("assets/amazo-guia-avatar-g10.png", use_container_width=True)
 
     st.markdown("---")
-    st.markdown("**🔗 Links do Hub**")
+    st.markdown(
+        '<div class="projeto-desc">'
+        'Agente inteligente RAG que consulta fontes autorizadas do '
+        'Encontro d\'Água Hub e responde em linguagem natural com '
+        'rastreabilidade de fonte.<br><br>'
+        '<strong>Challenge G10 — Alura Agente</strong><br>'
+        'ONE · Oracle Next Education'
+        '</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown("---")
+    st.markdown("**Projeto**")
     st.markdown("""
-- [🌐 Hub](https://hub.encontrodagua.com/)
-- [🔗 Link d'Água](https://link.encontrodagua.com/)
-- [💼 Portfólio Lídi](https://link.encontrodagua.com/r/portifolio-lidimoura)
-- [💬 WhatsApp](https://wa.me/5541992557600?text=Ol%C3%A1%2C+vim+pela+Amaz%C3%B4.guia)
+- [Repositório GitHub](https://github.com/lidimoura/amazo-guia-g10)
+- [Showcase do Challenge](https://lidimoura.github.io/amazo-g10-showcase/)
 """)
 
     st.markdown("---")
 
     # Botão de limpar chat — reseta o histórico sem recarregar o pipeline
-    if st.button("🗑️ Limpar conversa", use_container_width=True):
+    if st.button("Limpar conversa", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
 

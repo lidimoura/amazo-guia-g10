@@ -74,8 +74,6 @@ def build_agent(retriever):
         return "\n\n---\n\n".join(partes)
 
     # LLM principal com sistema de fallback em cadeia
-    # transport="rest" força uso de HTTP/REST ao invés de gRPC —
-    # mais compatível com diferentes versões do sistema e redes do Streamlit Cloud.
     google_api_key = os.environ.get("GOOGLE_API_KEY")
 
     # Log de diagnóstico (sem expor o valor da key)
@@ -87,19 +85,12 @@ def build_agent(retriever):
     primary_llm = ChatGoogleGenerativeAI(
         model=PRIMARY_LLM_MODEL,
         google_api_key=google_api_key,
-        transport="rest",
     )
     fallback_llm = ChatGoogleGenerativeAI(
         model=FALLBACK_LLM_MODEL,
         google_api_key=google_api_key,
-        transport="rest",
     )
-    fallback_llm_2 = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash-8b",
-        google_api_key=google_api_key,
-        transport="rest",
-    )
-    llm_with_fallback = primary_llm.with_fallbacks([fallback_llm, fallback_llm_2])
+    llm_with_fallback = primary_llm.with_fallbacks([fallback_llm])
 
     # Agente ReAct compilado pelo LangGraph
     agent = create_react_agent(

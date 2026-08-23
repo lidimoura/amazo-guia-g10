@@ -93,3 +93,43 @@ Chaves de API gerenciadas via `.env` (local, gitignored) e `st.secrets` (Streaml
 ### Estado
 
 Estrutura de código (`src/`), dependências, configuração de tema e segurança sendo criados. Pipeline de ingestão, agente e interface em sequência.
+
+---
+
+## Registro 003 — Entrega do Challenge G10
+
+**Data:** 23 de agosto de 2026  
+**Status:** MVP funcional; entrega realizada.
+
+### Correções críticas
+
+O modelo LLM foi atualizado de `gemini-1.5-flash` / `gemini-1.5-flash-8b` para `gemini-2.0-flash` + fallback `gemini-1.5-flash`. O parâmetro `transport="rest"` foi removido do `ChatGoogleGenerativeAI` — era a causa raiz do erro `NotFound` na API Gemini no Streamlit Cloud. A cadeia de fallback foi simplificada para 2 níveis (primário + fallback).
+
+### Sidebar — redesign
+
+A sidebar foi redesenhada para focar no projeto:
+- Removidos emojis dos links e botões
+- Removidos links do Hub (a Amazô já os fornece nas respostas)
+- Adicionada descrição do projeto e referência ao Challenge G10
+- Mantidos apenas links do repositório GitHub e do Showcase LP
+- CSS atualizado: links em verde temático (#A3C944) em vez do azul padrão
+
+### Documentação para entrega
+
+| Artefato | Ação |
+|---|---|
+| README.md | Atualizado com URL de deploy, exemplos de Q&A, badge "MVP Funcional", seção de evidências |
+| notebooks/amazo_sandbox.ipynb | Criado a partir do .py para visualização no GitHub e uso no Colab |
+| data/sources/pdf/ | PDFs gerados externamente a partir dos .md para atendimento ao requisito do edital |
+| DEVLOG.md | Registro 003 adicionado |
+| showcase-status.yml | Atualizado para refletir MVP funcional |
+
+> **Decisão:** O script auxiliar de geração de PDFs (`scripts/generate_pdfs.py`) foi removido do repositório após gerar os 9 arquivos. Os PDFs são artefatos estáticos de evidência e não precisam de pipeline automatizado no escopo do MVP. Código limpo > código inútil.
+
+### Deploy
+
+Deploy público ativo em: https://amazo-guia-g10.streamlit.app/
+
+Plataforma: Streamlit Cloud (alternativa à OCI, aceita conforme a live do Challenge).
+API key configurada via `st.secrets`.
+

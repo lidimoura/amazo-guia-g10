@@ -7,8 +7,8 @@ schema_version: 1
 project:
   name: "Amazô.guia"
   challenge: "G10"
-  phase: "implementacao_mvp"
-  public_summary: "MVP de agente SDR-RAG com LangGraph, Gemini e Streamlit em construção ativa."
+  phase: "mvp_funcional"
+  public_summary: "MVP funcional de agente SDR-RAG com LangGraph, Gemini e Streamlit. Deploy público ativo."
 
 rag:
   source_catalog_status: "aprovado"
@@ -32,22 +32,29 @@ rag:
     - "regras-de-negocio"
     - "processos"
     - "portfolio"
-  ingestion_status: "em_desenvolvimento"
-  test_status: "nao_iniciado"
+  ingestion_status: "concluido"
+  test_status: "qa_basico_realizado"
   stack:
     llm: "Gemini 2.0 Flash"
+    fallback_llm: "Gemini 1.5 Flash"
     embeddings: "all-MiniLM-L6-v2"
     vector_store: "InMemoryVectorStore"
     orchestration: "LangGraph ReAct"
     interface: "Streamlit"
     deploy: "Streamlit Cloud"
 
+deploy:
+  url: "https://amazo-guia-g10.streamlit.app/"
+  platform: "Streamlit Cloud"
+  status: "ativo"
+
 showcase:
-  update_required: true
-  update_reason: "Registrar transição para implementação ativa do MVP: stack definida, fontes aprovadas, pipeline RAG em construção."
-  public_evidence: []
+  update_required: false
+  update_reason: "MVP funcional entregue com deploy público ativo. README atualizado com exemplos e evidências."
+  public_evidence:
+    - "Deploy público: https://amazo-guia-g10.streamlit.app/"
 
 governance:
-  review_status: "em_execucao_com_aprovacao_da_ceo"
+  review_status: "entrega_challenge_realizada"
   owner: "Lídi Moura"
   publication_rule: "Toda atualização pública exige aprovação explícita da CEO."
