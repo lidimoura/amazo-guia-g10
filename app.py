@@ -93,8 +93,11 @@ hr {
 
 
 # === Carregamento do pipeline RAG (cacheado) ===
+# cache_version: incrementar para forçar rebuild após mudanças de configuração
+CACHE_VERSION = "v1.3-gemini15flash"
+
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
-def carregar_pipeline():
+def carregar_pipeline(cache_version=CACHE_VERSION):
     """
     Carrega e cacheia o pipeline completo: ingestão → embeddings → vector store → agente.
 
