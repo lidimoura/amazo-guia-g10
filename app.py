@@ -113,7 +113,7 @@ a:hover {
 
 # === Carregamento do pipeline RAG (cacheado) ===
 # cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v3.2-groq-no-fallback"
+CACHE_VERSION = "v3.3-groq-llama33"
 
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
 def carregar_pipeline(cache_version=CACHE_VERSION):
@@ -160,7 +160,10 @@ with st.sidebar:
     st.markdown('<div class="sidebar-title">Amazô.guia</div>', unsafe_allow_html=True)
     st.markdown('<div class="sidebar-subtitle">Agente SDR-RAG · Encontro d\'Água Hub</div>', unsafe_allow_html=True)
 
-    st.image("assets/amazo-guia-avatar-g10.png", use_container_width=True)
+    try:
+        st.image("assets/amazo-guia-avatar-g10.png", use_container_width=True)
+    except Exception:
+        pass  # Avatar omitido se formato incompativel com Pillow
 
     st.markdown("---")
     st.markdown(

@@ -24,9 +24,9 @@ COLORS = {
 }
 
 # === Modelos (Groq) ===
-# llama-3.1-70b-versatile → primário: alta qualidade, free tier Groq
-# llama-3.1-8b-instant → fallback: rápido e leve
-PRIMARY_LLM_MODEL = "llama-3.1-70b-versatile"
+# llama-3.3-70b-versatile → primário: substituto oficial do 3.1-70b (depreciado em ago/2026)
+# llama-3.1-8b-instant → fallback: ainda ativo no free tier
+PRIMARY_LLM_MODEL = "llama-3.3-70b-versatile"
 FALLBACK_LLM_MODEL = "llama-3.1-8b-instant"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
