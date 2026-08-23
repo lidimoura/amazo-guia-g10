@@ -145,4 +145,25 @@ A sidebar foi redesenhada para focar no projeto e não duplicar o papel da Amaz�
 - **Secrets configurados:** `GROQ_API_KEY` via `st.secrets`
 - **Cache version:** `v3.0-groq-llama31`
 
+---
+
+## Registro 004 — Resiliência de Deploy & Estabilização Final
+
+**Data:** 23 de agosto de 2026  
+**Status:** Validação final e estabilização de produção 100% concluída.
+
+### 1. Resolução do Bug PyTorch Meta Tensor / Streamlit Cloud
+- **Causa:** O ambiente de deploy provisionava Python 3.14 + PyTorch 2.13 nightly, gerando `NotImplementedError` na movimentação de meta tensores do `sentence-transformers`.
+- **Solução 1:** Criação do `.python-version` fixando o runtime em `3.11`.
+- **Solução 2 (Fallback Blindado):** Implementação da classe `TfidfEmbeddings` em `src/embeddings.py` que herda de `langchain_core.embeddings.Embeddings`. Se o modelo HuggingFace/PyTorch falhar por qualquer incompatibilidade de ambiente ou falta de GPU, o fallback de TF-IDF é ativado instantaneamente sem interromper o serviço.
+
+### 2. Calibração de Modelos Groq
+- Os modelos anteriores (`llama-3.3-70b` e `gemma2-9b-it`) foram descontinuados/restringidos no tier do Groq.
+- Ativação dos modelos de alto desempenho abertos hospedados na infraestrutura Groq LPU:
+  - **Primário:** `openai/gpt-oss-120b` (raciocínio avançado, respostas acolhedoras e fundamentadas)
+  - **Fallback:** `openai/gpt-oss-20b` (alta velocidade)
+- Atualização do `.env.example` para documentar `OPENAI_API_KEY` como contingência adicional.
+
+### 3. Validação Funcional
+- Respostas testadas em produção com citações de fonte em conformidade com as diretrizes da Amazô.guia e Encontro d'Água Hub.
 
