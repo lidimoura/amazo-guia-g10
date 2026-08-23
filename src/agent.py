@@ -73,18 +73,26 @@ def build_agent(retriever):
 
         return "\n\n---\n\n".join(partes)
 
-    # LLM principal com sistema de fallback
-    # Decisão: fallback automático em vez de try/except manual —
-    # o LangChain gerencia a troca de modelo de forma transparente
+    # LLM principal com sistema de fallback em cadeia
+    # Decisão: 3 níveis de fallback para máxima resiliência no Streamlit Cloud free tier.
+    # gemini-2.0-flash → mais capaz; pode não estar disponível em todas as keys
+    # gemini-1.5-flash → estável e amplamente disponível no free tier
+    # gemini-1.5-flash-8b → modelo mais leve, funciona como último recurso
+    google_api_key = os.environ.get("GOOGLE_API_KEY")
+
     primary_llm = ChatGoogleGenerativeAI(
         model=PRIMARY_LLM_MODEL,
-        google_api_key=os.environ.get("GOOGLE_API_KEY"),
+        google_api_key=google_api_key,
     )
     fallback_llm = ChatGoogleGenerativeAI(
         model=FALLBACK_LLM_MODEL,
-        google_api_key=os.environ.get("GOOGLE_API_KEY"),
+        google_api_key=google_api_key,
     )
-    llm_with_fallback = primary_llm.with_fallbacks([fallback_llm])
+    fallback_llm_2 = ChatGoogleGenerativeAI(
+        model="gemini-1.5-flash-8b",
+        google_api_key=google_api_key,
+    )
+    llm_with_fallback = primary_llm.with_fallbacks([fallback_llm, fallback_llm_2])
 
     # Agente ReAct compilado pelo LangGraph
     agent = create_react_agent(
