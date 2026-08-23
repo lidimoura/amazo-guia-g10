@@ -24,12 +24,11 @@ COLORS = {
 }
 
 # === Modelos ===
-# Nota: use o nome exato da API Google AI Studio.
-# gemini-2.0-flash → primário: GA estável, free tier, melhor disponibilidade
-# gemini-1.5-flash → fallback: versão anterior ainda suportada
-# Se ambos falharem, verificar se a GOOGLE_API_KEY é válida em aistudio.google.com
-PRIMARY_LLM_MODEL = "gemini-2.0-flash"
-FALLBACK_LLM_MODEL = "gemini-1.5-flash"
+# gemini-1.5-flash → estável, disponível universalmente no free tier (Google AI Studio)
+# gemini-1.0-pro → fallback legacy, suportado em todas as regiões
+# NOTA: gemini-2.0-flash requer acesso especial e pode retornar NotFound em free tier
+PRIMARY_LLM_MODEL = "gemini-1.5-flash"
+FALLBACK_LLM_MODEL = "gemini-1.0-pro"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # === Retriever ===

@@ -113,7 +113,7 @@ a:hover {
 
 # === Carregamento do pipeline RAG (cacheado) ===
 # cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v2.0-gemini20flash"
+CACHE_VERSION = "v2.1-gemini15flash"
 
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
 def carregar_pipeline(cache_version=CACHE_VERSION):
@@ -251,10 +251,20 @@ if prompt := st.chat_input("Fale com a Amazô.guia..."):
                 for m in st.session_state.messages[:-1]  # exclui a última (atual)
             ]
 
-            resultado = agent.invoke({
-                "messages": history + [{"role": "user", "content": prompt}]
-            })
-            resposta = resultado["messages"][-1].content
+            try:
+                resultado = agent.invoke({
+                    "messages": history + [{"role": "user", "content": prompt}]
+                })
+                resposta = resultado["messages"][-1].content
+            except Exception as e:
+                tipo = type(e).__name__
+                # Exibe erro amigável sem vazar conteúdo sensível
+                resposta = (
+                    "Desculpe, tive um problema técnico ao processar sua pergunta. "
+                    "Por favor, tente novamente em alguns instantes."
+                )
+                # Log técnico visível apenas nos logs do servidor
+                print(f"[agent] Erro ao invocar agente: {tipo}: {str(e)[:200]}")
 
         st.markdown(resposta)
 
