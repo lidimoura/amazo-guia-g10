@@ -113,7 +113,7 @@ a:hover {
 
 # === Carregamento do pipeline RAG (cacheado) ===
 # cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v3.4-groq-emoji-avatar"
+CACHE_VERSION = "v4.0-rag-chain-simples"
 
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
 def carregar_pipeline(cache_version=CACHE_VERSION):
@@ -125,7 +125,7 @@ def carregar_pipeline(cache_version=CACHE_VERSION):
     quantas interações o usuário faça.
 
     Returns:
-        Agente LangGraph compilado e pronto para receber mensagens.
+        Tupla (agent_dict, n_docs) — agent_dict com llm e retriever.
     """
     print("[pipeline] Iniciando carregamento do pipeline RAG...")
     from src.ingest import load_documents
@@ -255,14 +255,11 @@ if prompt := st.chat_input("Fale com a Amazô.guia..."):
             ]
 
             try:
-                resultado = agent.invoke({
-                    "messages": history + [{"role": "user", "content": prompt}]
-                })
-                resposta = resultado["messages"][-1].content
+                from src.agent import run_agent
+                resposta = run_agent(agent, prompt)
             except Exception as e:
                 tipo = type(e).__name__
                 msg_curta = str(e)[:300]
-                # Log tecnico nos logs do servidor (visivel em Manage App -> Logs)
                 print(f"[agent-error] {tipo}: {msg_curta}")
                 resposta = (
                     "Desculpe, tive um problema t\u00e9cnico ao processar sua pergunta. "
