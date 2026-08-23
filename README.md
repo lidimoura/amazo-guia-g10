@@ -46,50 +46,96 @@ A identidade combina referências amazônicas, tecnologia acessível e sustentab
 > Fotografia autoral: [samambaia-amazonas.webp](./assets/samambaia-amazonas.webp), registrada por Lídi Moura no Amazonas.
 
 
-## MVP
+## Arquitetura
 
-O MVP será **read-only e isolado da produção**, com Python, Gemini e arquitetura RAG. A agente deverá:
+```
+Usuário → Streamlit Chat → LangGraph ReAct Agent
+                                ↓
+                    [pega_contexto() tool]
+                                ↓
+                    InMemoryVectorStore
+                                ↓
+                    all-MiniLM-L6-v2 embeddings
+                                ↓
+                    data/sources/public/*.md (10 docs v2.1)
 
-- consultar documentos institucionais e comerciais aprovados;
-- responder em português claro e acessível, citando fontes quando possível;
-- reconhecer limites e recusar perguntas sem evidência;
-- resistir a prompt injection e não revelar instruções, credenciais ou fontes privadas;
-- apresentar links aprovados, como WhatsApp do Hub, WhatsApp da Lídi, portfólio, LP institucional, Link d’Água, CRM ou outro canal autorizado.
+LLM: Gemini 2.0 Flash → fallback Gemini 1.5 Flash
+```
 
-No MVP, encaminhar significa **apresentar o canal ao usuário**. Registro automático de leads somente será afirmado após integração validada.
+## Stack
 
-## Fontes e infraestrutura
+| Camada | Tecnologia | Justificativa |
+|---|---|---|
+| LLM | Gemini 2.0 Flash + fallback 1.5 Flash | Performance + custo zero + ecossistema Google |
+| Embeddings | `all-MiniLM-L6-v2` (HuggingFace) | Leve (~80 MB), roda em CPU, free tier compatível |
+| Vector Store | `InMemoryVectorStore` (LangChain) | Simplicidade para MVP read-only |
+| Orquestração | LangGraph ReAct | Raciocínio + ação dinâmica com tool |
+| Interface | Streamlit | Prototipação rápida e deploy em cloud |
+| Deploy | Streamlit Cloud | URL pública funcional dentro do prazo |
 
-Os documentos de fonte de verdade serão preparados no Perplexity, revisados por Lídi e enviados posteriormente. O Google Drive poderá apoiar a curadoria; o OCI Object Storage privado poderá armazenar as versões aprovadas; e o Autonomous AI Database poderá ser avaliado como backend vetorial. Nenhuma dessas integrações será ativada sem validação de segurança, custo e capacidade.
+## Fontes de verdade
 
-| Camada | Estado |
-|---|---|
-| Documentos do Perplexity | Pendentes de envio e aprovação |
-| RAG local | Próximo incremento pedagógico |
-| OCI Object Storage | Opção arquitetural |
-| Autonomous AI Database | Avaliação posterior |
-| Link d’Água e CRM | Integração futura |
-| n8n | Fora do MVP |
+10 documentos `.md` em `data/sources/public/`, organizados em duas camadas:
+
+**Camada 1 — Atendimento público:**
+`01-perfil`, `02-hub`, `03-catalogo`, `04-canais`, `05-amazo-guia`
+
+**Camada 2 — Complementar:**
+`01b-trajetoria`, `08-faq`, `09-formacao`, `10-portfolio`
+
+> Documentos internos (06, 07) vão para OCI Object Storage via PAR — mapeado para próximo incremento.
+
+## Como executar localmente
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/lidimoura/amazo-guia-g10
+cd amazo-guia-g10
+
+# 2. Crie o ambiente virtual e instale dependências
+python -m venv .venv
+.venv\Scripts\activate  # Windows
+pip install -r requirements.txt
+
+# 3. Configure a API key
+cp .env.example .env
+# Edite .env e adicione sua GOOGLE_API_KEY
+
+# 4. Execute o app
+streamlit run app.py
+```
+
+## Deploy — Streamlit Cloud
+
+1. Faça push do repositório para o GitHub
+2. Acesse [share.streamlit.io](https://share.streamlit.io) e conecte o repo
+3. Em **Settings → Secrets**, adicione:
+   ```toml
+   GOOGLE_API_KEY = "sua-chave-aqui"
+   ```
+4. Aguarde o deploy — a URL pública estará disponível em poucos minutos
+
+## Sandbox (Google Colab)
+
+O arquivo [`notebooks/amazo_sandbox.py`](./notebooks/amazo_sandbox.py) contém o pipeline completo em células sequenciais para experimentação e aprendizagem no Colab. Cada célula inclui justificativas técnicas da tomada de decisão.
 
 ## Autoria e transparência
 
 O projeto é de autoria e propriedade de **Lídi Moura**, que mantém autonomia sobre produto, escopo, decisões técnicas, configurações, fontes, testes e responsabilidade final.
 
-O **Hub OS** é utilizado como infraestrutura metodológica e operacional da holding para aumentar agilidade, organização e qualidade. Seu uso, já validado em projetos pessoais e freelas do Hub, não substitui a autoria nem delega decisões à ferramenta. Manus AI, Gemini, Perplexity, Colab e Antigravity são ferramentas complementares; a curadoria e a validação permanecem com Lídi.
+O **Hub OS** é utilizado como infraestrutura metodológica e operacional da holding para aumentar agilidade, organização e qualidade. Seu uso, já validado em projetos pessoais e freelas do Hub, não substitui a autoria nem delega decisões à ferramenta.
 
-## Segurança e próximos passos
+## Segurança
 
-Não serão publicados segredos, PII desnecessária, dados de produção, prompts internos ou credenciais. A construção seguirá incrementos pequenos: fontes aprovadas, ingestão, RAG local, testes, interface, documentação e, depois, infraestrutura e integrações.
-
-O projeto está em **fundação documental**. O primeiro incremento contém `README.md`, `DEVLOG.md` e os ativos visuais aprovados; o agente, as fontes, os testes, a interface e o deploy ainda não estão validados.
+Segredos gerenciados via `.env` (local, gitignored) e `st.secrets` (Streamlit Cloud). O system prompt inclui blindagem anti-jailbreak e recusa educada para perguntas fora do escopo do Hub.
 
 ## Ecossistema público
 
-- [Encontro d’água Hub](https://hub.encontrodagua.com)
-- [Link d’Água](https://link.encontrodagua.com/vitrine)
+- [Encontro d'água Hub](https://hub.encontrodagua.com)
+- [Link d'Água](https://link.encontrodagua.com/vitrine)
 - [GitHub da Lídi Moura](https://github.com/lidimoura)
-- [Hub OS](https://github.com/lidimoura/Hub_OS) *(repositório oficial com acesso restrito)*
+- [Showcase do Challenge G10](https://lidimoura.github.io/amazo-g10-showcase/)
 
 ---
 
-**Lídi Moura — analista de dados, IA e automações | Fundadora do Encontro d’água Hub**
+**Lídi Moura — analista de dados, IA e automações | Fundadora do Encontro d'água Hub**
