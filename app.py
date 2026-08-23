@@ -18,6 +18,7 @@ a cada interação do usuário e reduz o tempo de resposta.
 import os
 import streamlit as st
 from dotenv import load_dotenv
+from src.config import AVATAR_PATH
 
 # Carrega .env local (ignorado em produção, onde st.secrets prevalece)
 load_dotenv()
