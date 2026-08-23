@@ -23,12 +23,11 @@ COLORS = {
     "vinho_escuro": "#3E2128",
 }
 
-# === Modelos ===
-# gemini-1.5-flash → estável, disponível universalmente no free tier (Google AI Studio)
-# gemini-1.0-pro → fallback legacy, suportado em todas as regiões
-# NOTA: gemini-2.0-flash requer acesso especial e pode retornar NotFound em free tier
-PRIMARY_LLM_MODEL = "gemini-1.5-flash"
-FALLBACK_LLM_MODEL = "gemini-1.0-pro"
+# === Modelos (Groq) ===
+# llama-3.1-70b-versatile → primário: alta qualidade, free tier Groq
+# llama-3.1-8b-instant → fallback: rápido e leve
+PRIMARY_LLM_MODEL = "llama-3.1-70b-versatile"
+FALLBACK_LLM_MODEL = "llama-3.1-8b-instant"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # === Retriever ===

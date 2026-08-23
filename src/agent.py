@@ -12,15 +12,14 @@ pega_contexto. O ciclo é:
   3. Executa a busca via pega_contexto (Ação)
   4. Sintetiza a resposta final com os chunks recuperados (Geração)
 
-Sistema de fallback: o LLM principal (Gemini 2.0 Flash) tem um fallback
-para Gemini 1.5 Flash via .with_fallbacks(). Isso garante que o agente
-continue operando mesmo durante instabilidades da API, sem expor erros
-ao usuário final — prática essencial em sistemas produtivos.
+LLM: Groq (llama-3.1-70b-versatile) — escolhido pela disponibilidade
+universal no free tier, latência baixa e ausência de restrições regionais.
+Fallback para llama-3.1-8b-instant em caso de instabilidade.
 """
 
 import os
 from langchain_core.tools import tool
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langgraph.prebuilt import create_react_agent
 
 from src.config import PRIMARY_LLM_MODEL, FALLBACK_LLM_MODEL
@@ -73,22 +72,24 @@ def build_agent(retriever):
 
         return "\n\n---\n\n".join(partes)
 
-    # LLM principal com sistema de fallback em cadeia
-    google_api_key = os.environ.get("GOOGLE_API_KEY")
+    # API key do Groq
+    groq_api_key = os.environ.get("GROQ_API_KEY")
 
-    # Log de diagnóstico (sem expor o valor da key)
-    if google_api_key:
-        print(f"[agent] API key encontrada: {len(google_api_key)} chars, prefixo: {google_api_key[:4]}...")
+    if groq_api_key:
+        print(f"[agent] GROQ_API_KEY encontrada: {len(groq_api_key)} chars")
     else:
-        raise ValueError("GOOGLE_API_KEY não encontrada no ambiente.")
+        raise ValueError("GROQ_API_KEY não encontrada. Configure nos Secrets do Streamlit ou no .env local.")
 
-    primary_llm = ChatGoogleGenerativeAI(
+    # LLM principal com fallback — ambos via Groq
+    primary_llm = ChatGroq(
         model=PRIMARY_LLM_MODEL,
-        google_api_key=google_api_key,
+        groq_api_key=groq_api_key,
+        temperature=0.3,
     )
-    fallback_llm = ChatGoogleGenerativeAI(
+    fallback_llm = ChatGroq(
         model=FALLBACK_LLM_MODEL,
-        google_api_key=google_api_key,
+        groq_api_key=groq_api_key,
+        temperature=0.3,
     )
     llm_with_fallback = primary_llm.with_fallbacks([fallback_llm])
 

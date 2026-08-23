@@ -113,7 +113,7 @@ a:hover {
 
 # === Carregamento do pipeline RAG (cacheado) ===
 # cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v2.1-gemini15flash"
+CACHE_VERSION = "v3.0-groq-llama31"
 
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
 def carregar_pipeline(cache_version=CACHE_VERSION):
@@ -134,18 +134,17 @@ def carregar_pipeline(cache_version=CACHE_VERSION):
 
     # Garante que a API key está disponível
     # Streamlit Cloud: usa st.secrets; local: usa .env via load_dotenv()
-    # IMPORTANTE: use uma key do Google AI Studio (aistudio.google.com/apikey)
-    google_api_key = st.secrets.get("GOOGLE_API_KEY", os.getenv("GOOGLE_API_KEY"))
-    if not google_api_key:
-        st.error("⚠️ GOOGLE_API_KEY não encontrada. Configure nos Secrets do Streamlit.")
+    groq_api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+    if not groq_api_key:
+        st.error("GROQ_API_KEY nao encontrada. Configure nos Secrets do Streamlit.")
         st.stop()
 
-    google_api_key = google_api_key.strip()
-    if len(google_api_key) < 20:
-        st.error(f"⚠️ GOOGLE_API_KEY parece inválida ({len(google_api_key)} chars). Verifique nos Secrets.")
+    groq_api_key = groq_api_key.strip()
+    if len(groq_api_key) < 20:
+        st.error(f"GROQ_API_KEY parece invalida ({len(groq_api_key)} chars). Verifique nos Secrets.")
         st.stop()
 
-    os.environ["GOOGLE_API_KEY"] = google_api_key
+    os.environ["GROQ_API_KEY"] = groq_api_key
 
     docs = load_documents()
     embed_model = get_embedding_model()
