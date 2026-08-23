@@ -255,6 +255,7 @@ if prompt := st.chat_input("Fale com a Amazô.guia..."):
             except Exception as e:
                 tipo = type(e).__name__
                 msg_curta = str(e)[:300]
+                logging.error(f"[agent-error] {tipo}: {msg_curta}")
                 print(f"[agent-error] {tipo}: {msg_curta}")
                 resposta = (
                     "Desculpe, tive um problema t\u00e9cnico ao processar sua pergunta. "
