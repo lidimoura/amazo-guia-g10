@@ -116,6 +116,16 @@ def carregar_pipeline():
     if not google_api_key:
         st.error("⚠️ GOOGLE_API_KEY não encontrada. Configure nos Secrets do Streamlit ou no .env local.")
         st.stop()
+
+    # Validação básica do formato da key (keys Google AI Studio começam com "AIza")
+    google_api_key = google_api_key.strip()
+    if not google_api_key.startswith("AIza") or len(google_api_key) < 30:
+        st.error(
+            f"⚠️ GOOGLE_API_KEY parece inválida (comprimento: {len(google_api_key)} chars). "
+            "Verifique se está completa e sem espaços extras nos Secrets."
+        )
+        st.stop()
+
     os.environ["GOOGLE_API_KEY"] = google_api_key
 
     docs = load_documents()
