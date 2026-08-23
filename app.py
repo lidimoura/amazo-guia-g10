@@ -167,6 +167,12 @@ def carregar_pipeline():
 with st.sidebar:
     if AVATAR_PATH.exists():
         st.image(str(AVATAR_PATH), width=130)
+        with st.popover("🔍 Ampliar ilustração"):
+            st.image(
+                str(AVATAR_PATH),
+                caption="Amazô.guia — Ilustração Oficial (Challenge G10)",
+                use_container_width=True,
+            )
     st.markdown('<div class="sidebar-title">Amazô.guia</div>', unsafe_allow_html=True)
     st.markdown('<div class="sidebar-subtitle">Agente SDR-RAG · Encontro d\'Água Hub</div>', unsafe_allow_html=True)
 
@@ -246,7 +252,7 @@ if "messages" not in st.session_state:
 
 # === Renderiza histórico ===
 for msg in st.session_state.messages:
-    avatar = "🌿" if msg["role"] == "assistant" else None
+    avatar = "🌿" if msg["role"] == "assistant" else "💬"
     with st.chat_message(msg["role"], avatar=avatar):
         st.markdown(msg["content"])
 
@@ -255,7 +261,7 @@ for msg in st.session_state.messages:
 if prompt := st.chat_input("Fale com a Amazô.guia..."):
     # Adiciona mensagem do usuário ao histórico
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar="💬"):
         st.markdown(prompt)
 
     # Gera resposta do agente
