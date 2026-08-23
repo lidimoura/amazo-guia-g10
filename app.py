@@ -109,50 +109,45 @@ a:hover {
 }
 </style>
 """, unsafe_allow_html=True)
+import logging
 
-
-# === Carregamento do pipeline RAG (cacheado) ===
-# cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v4.0-rag-chain-simples"
-
-@st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
-def carregar_pipeline(cache_version=CACHE_VERSION):
+# === Carregamento do pipeline RAG (cacheado por sessao via session_state) ===
+def carregar_pipeline():
     """
-    Carrega e cacheia o pipeline completo: ingestão → embeddings → vector store → agente.
-
-    O decorator @st.cache_resource garante que esse processo pesado
-    ocorra apenas uma vez por sessão de servidor, independente de
-    quantas interações o usuário faça.
+    Carrega o pipeline completo: ingestao -> embeddings -> vector store -> agente.
+    Cacheado em st.session_state para evitar reconstrucao a cada interacao.
 
     Returns:
-        Tupla (agent_dict, n_docs) — agent_dict com llm e retriever.
+        Tupla (agent_dict, n_docs) -- agent_dict com llm e retriever.
     """
-    print("[pipeline] Iniciando carregamento do pipeline RAG...")
+    logging.warning("[pipeline] === INICIANDO CARGA DO PIPELINE ===")
     from src.ingest import load_documents
     from src.embeddings import get_embedding_model
     from src.vector_store import build_vector_store, get_retriever
     from src.agent import build_agent
 
-    # Garante que a API key está disponível
+    # Garante que a API key esta disponivel
     # Streamlit Cloud: usa st.secrets; local: usa .env via load_dotenv()
-    groq_api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+    try:
+        groq_api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+    except Exception:
+        groq_api_key = os.getenv("GROQ_API_KEY")
+
     if not groq_api_key:
         st.error("GROQ_API_KEY nao encontrada. Configure nos Secrets do Streamlit.")
         st.stop()
 
     groq_api_key = groq_api_key.strip()
-    if len(groq_api_key) < 20:
-        st.error(f"GROQ_API_KEY parece invalida ({len(groq_api_key)} chars). Verifique nos Secrets.")
-        st.stop()
-
+    logging.warning(f"[pipeline] GROQ_API_KEY: {len(groq_api_key)} chars, prefixo={groq_api_key[:6]}")
     os.environ["GROQ_API_KEY"] = groq_api_key
 
     docs = load_documents()
+    logging.warning(f"[pipeline] Docs carregados: {len(docs)}")
     embed_model = get_embedding_model()
     vector_store = build_vector_store(docs, embed_model)
     retriever = get_retriever(vector_store)
     agent = build_agent(retriever)
-
+    logging.warning("[pipeline] Pipeline carregado com sucesso!")
     return agent, len(docs)
 
 
@@ -160,11 +155,6 @@ def carregar_pipeline(cache_version=CACHE_VERSION):
 with st.sidebar:
     st.markdown('<div class="sidebar-title">Amazô.guia</div>', unsafe_allow_html=True)
     st.markdown('<div class="sidebar-subtitle">Agente SDR-RAG · Encontro d\'Água Hub</div>', unsafe_allow_html=True)
-
-    try:
-        st.image("assets/amazo-guia-avatar-g10.png", use_container_width=True)
-    except Exception:
-        pass  # Avatar omitido se formato incompativel com Pillow
 
     st.markdown("---")
     st.markdown(
@@ -188,7 +178,7 @@ with st.sidebar:
     st.markdown("---")
 
     # Botão de limpar chat — reseta o histórico sem recarregar o pipeline
-    if st.button("Limpar conversa", use_container_width=True):
+    if st.button("Limpar conversa"):
         st.session_state.messages = []
         st.rerun()
 
@@ -199,8 +189,13 @@ with st.sidebar:
     )
 
 
-# === Carrega o pipeline ===
-agent, n_chunks = carregar_pipeline()
+# === Carrega o pipeline (uma vez por sessao) ===
+if "agent" not in st.session_state:
+    with st.spinner("🌿 Iniciando a Amazô.guia..."):
+        st.session_state.agent, st.session_state.n_chunks = carregar_pipeline()
+
+agent = st.session_state.agent
+n_chunks = st.session_state.n_chunks
 
 
 # === Cabeçalho principal ===

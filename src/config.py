@@ -24,9 +24,9 @@ COLORS = {
 }
 
 # === Modelos (Groq) ===
-# llama-3.3-70b-versatile → primário: substituto oficial do 3.1-70b (depreciado em ago/2026)
-# llama-3.1-8b-instant → fallback: ainda ativo no free tier
-PRIMARY_LLM_MODEL = "llama-3.3-70b-versatile"
+# gemma2-9b-it: modelo open-source Google, gratuito no Groq, sem problemas de deprecacao
+# llama-3.1-8b-instant: fallback leve e rapido
+PRIMARY_LLM_MODEL = "gemma2-9b-it"
 FALLBACK_LLM_MODEL = "llama-3.1-8b-instant"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
