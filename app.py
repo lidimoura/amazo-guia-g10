@@ -126,20 +126,31 @@ def carregar_pipeline():
     from src.vector_store import build_vector_store, get_retriever
     from src.agent import build_agent
 
-    # Garante que a API key esta disponivel
+    # Garante que as API keys estao disponiveis
     # Streamlit Cloud: usa st.secrets; local: usa .env via load_dotenv()
     try:
         groq_api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
     except Exception:
         groq_api_key = os.getenv("GROQ_API_KEY")
 
-    if not groq_api_key:
-        st.error("GROQ_API_KEY nao encontrada. Configure nos Secrets do Streamlit.")
+    try:
+        openai_api_key = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
+    except Exception:
+        openai_api_key = os.getenv("OPENAI_API_KEY")
+
+    if not groq_api_key and not openai_api_key:
+        st.error("Nenhuma chave de API encontrada. Configure GROQ_API_KEY ou OPENAI_API_KEY nos Secrets do Streamlit.")
         st.stop()
 
-    groq_api_key = groq_api_key.strip()
-    logging.warning(f"[pipeline] GROQ_API_KEY: {len(groq_api_key)} chars, prefixo={groq_api_key[:6]}")
-    os.environ["GROQ_API_KEY"] = groq_api_key
+    if groq_api_key:
+        groq_api_key = groq_api_key.strip()
+        os.environ["GROQ_API_KEY"] = groq_api_key
+        logging.warning(f"[pipeline] GROQ_API_KEY: {len(groq_api_key)} chars, prefixo={groq_api_key[:6]}")
+
+    if openai_api_key:
+        openai_api_key = openai_api_key.strip()
+        os.environ["OPENAI_API_KEY"] = openai_api_key
+        logging.warning(f"[pipeline] OPENAI_API_KEY ativa para fallback ({len(openai_api_key)} chars)")
 
     docs = load_documents()
     logging.warning(f"[pipeline] Docs carregados: {len(docs)}")
@@ -153,6 +164,8 @@ def carregar_pipeline():
 
 # === Sidebar ===
 with st.sidebar:
+    if AVATAR_PATH.exists():
+        st.image(str(AVATAR_PATH), width=130)
     st.markdown('<div class="sidebar-title">Amazô.guia</div>', unsafe_allow_html=True)
     st.markdown('<div class="sidebar-subtitle">Agente SDR-RAG · Encontro d\'Água Hub</div>', unsafe_allow_html=True)
 
@@ -162,17 +175,21 @@ with st.sidebar:
         'Agente inteligente RAG que consulta fontes autorizadas do '
         'Encontro d\'Água Hub e responde em linguagem natural com '
         'rastreabilidade de fonte.<br><br>'
-        '<strong>Challenge G10 — Alura Agente</strong><br>'
-        'ONE · Oracle Next Education'
+        '<strong><a href="https://alura-es-cursos.github.io/tech-builder-brasil/" target="_blank" style="color: #A3C944; text-decoration: none;">Challenge G10 — Tech Builder Brasil</a></strong><br>'
+        '<a href="https://www.alura.com.br/" target="_blank" style="color: #A3C944; text-decoration: none;">Alura</a> · '
+        '<a href="https://www.oracle.com/br/education/oracle-next-education/" target="_blank" style="color: #A3C944; text-decoration: none;">ONE (Oracle Next Education)</a>'
         '</div>',
         unsafe_allow_html=True
     )
 
     st.markdown("---")
-    st.markdown("**Projeto**")
+    st.markdown("**Links Oficiais**")
     st.markdown("""
+- [Challenge G10 (Alura / Oracle)](https://alura-es-cursos.github.io/tech-builder-brasil/)
 - [Repositório GitHub](https://github.com/lidimoura/amazo-guia-g10)
 - [Showcase do Challenge](https://lidimoura.github.io/amazo-g10-showcase/)
+- [Oracle Next Education (ONE)](https://www.oracle.com/br/education/oracle-next-education/)
+- [Alura](https://www.alura.com.br/)
 """)
 
     st.markdown("---")
