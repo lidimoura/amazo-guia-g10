@@ -113,7 +113,7 @@ a:hover {
 
 # === Carregamento do pipeline RAG (cacheado) ===
 # cache_version: incrementar para forçar rebuild após mudanças de configuração
-CACHE_VERSION = "v3.1-groq-state-modifier"
+CACHE_VERSION = "v3.2-groq-no-fallback"
 
 @st.cache_resource(show_spinner="🌿 Iniciando a Amazô.guia...")
 def carregar_pipeline(cache_version=CACHE_VERSION):
@@ -257,13 +257,13 @@ if prompt := st.chat_input("Fale com a Amazô.guia..."):
                 resposta = resultado["messages"][-1].content
             except Exception as e:
                 tipo = type(e).__name__
-                # Exibe erro amigável sem vazar conteúdo sensível
+                msg_curta = str(e)[:300]
+                # Log tecnico nos logs do servidor (visivel em Manage App -> Logs)
+                print(f"[agent-error] {tipo}: {msg_curta}")
                 resposta = (
-                    "Desculpe, tive um problema técnico ao processar sua pergunta. "
+                    "Desculpe, tive um problema t\u00e9cnico ao processar sua pergunta. "
                     "Por favor, tente novamente em alguns instantes."
                 )
-                # Log técnico visível apenas nos logs do servidor
-                print(f"[agent] Erro ao invocar agente: {tipo}: {str(e)[:200]}")
 
         st.markdown(resposta)
 

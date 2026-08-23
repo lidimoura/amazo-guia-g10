@@ -80,29 +80,24 @@ def build_agent(retriever):
     else:
         raise ValueError("GROQ_API_KEY não encontrada. Configure nos Secrets do Streamlit ou no .env local.")
 
-    # LLM principal com fallback — ambos via Groq
-    primary_llm = ChatGroq(
+    # LLM via Groq — modelo direto sem fallback chain
+    # Nota: .with_fallbacks() pode interferir com o bind_tools() interno do LangGraph
+    # Se o modelo primario falhar, o LangGraph lanca excecao e o graceful handler no app captura
+    llm = ChatGroq(
         model=PRIMARY_LLM_MODEL,
         groq_api_key=groq_api_key,
         temperature=0.3,
     )
-    fallback_llm = ChatGroq(
-        model=FALLBACK_LLM_MODEL,
-        groq_api_key=groq_api_key,
-        temperature=0.3,
-    )
-    llm_with_fallback = primary_llm.with_fallbacks([fallback_llm])
 
     # Agente ReAct compilado pelo LangGraph
-    # Nota: 'state_modifier' é o parâmetro correto nas versões LangGraph 0.2.x+
-    # (o parâmetro 'prompt' foi depreciado/renomeado)
+    # Nota: 'state_modifier' e o parametro correto nas versoes LangGraph 0.2.x+
     agent = create_react_agent(
-        model=llm_with_fallback,
+        model=llm,
         tools=[pega_contexto],
         state_modifier=AMAZO_SYSTEM_PROMPT,
     )
 
-    print(f"[agent] Agente criado com {PRIMARY_LLM_MODEL} + fallback {FALLBACK_LLM_MODEL}")
+    print(f"[agent] Agente criado com {PRIMARY_LLM_MODEL}")
     return agent
 
 
