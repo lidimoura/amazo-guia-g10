@@ -34,10 +34,12 @@ def get_embedding_model() -> HuggingFaceEmbeddings:
 
     print(f"[embeddings] Carregando modelo: {model_name}")
 
+    # Nota: model_kwargs={"device": "cpu"} removido — causa NotImplementedError
+    # no PyTorch 2.13 com meta tensors. sentence-transformers 3.4.x gerencia
+    # o device automaticamente, sem necessidade de especificar explicitamente.
     embed_model = HuggingFaceEmbeddings(
         model_name=model_name,
-        model_kwargs={"device": "cpu"},  # CPU para compatibilidade universal
-        encode_kwargs={"normalize_embeddings": True},  # Necessário para busca por cosseno
+        encode_kwargs={"normalize_embeddings": True},
     )
 
     print("[embeddings] Modelo carregado com sucesso.")
