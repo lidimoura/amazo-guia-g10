@@ -2,15 +2,23 @@
 
 ![Status](https://img.shields.io/badge/Status-MVP%20Funcional%20Validado-brightgreen)
 ![Projeto](https://img.shields.io/badge/Projeto-Amazô.guia-blue)
+![Showcase](https://img.shields.io/badge/Showcase%20LP-Caderno%20de%20Evidências-2D4F1E)
 ![LLM](https://img.shields.io/badge/LLM-Groq%20%2B%20OpenAI%20Fallback-orange)
 ![RAG](https://img.shields.io/badge/Arquitetura-RAG%20Resiliente-purple)
 ![Deploy](https://img.shields.io/badge/Deploy-Streamlit%20Cloud-red)
 
-> **Tecnologia acessível e sustentável.**
+> **Tecnologia acessível, humana e sustentável · Reflorestar o Digital.**
 
-## Deploy público
+---
 
-**🔗 [amazo-guia-g10.streamlit.app](https://amazo-guia-g10.streamlit.app/)**
+## 🚀 Acessos Rápidos & Produção
+
+| Canal | Link Direto | Finalidade |
+|---|---|---|
+| **🌿 Amazô.guia (App)** | **[amazo-guia-g10.streamlit.app](https://amazo-guia-g10.streamlit.app/)** | Agente SDR-RAG ativo em produção com busca semântica e citações |
+| **📖 Showcase Oficial (LP)** | **[lidimoura.github.io/amazo-g10-showcase](https://lidimoura.github.io/amazo-g10-showcase/)** | Caderno de Evidências visual, arquitetura explicável, QA interativo e portfólio |
+| **💼 Portfólio Lídi Moura** | **[link.encontrodagua.com/r/portifolio-lidimoura](https://link.encontrodagua.com/r/portifolio-lidimoura)** | Trajetória profissional e soluções no Link d'Água |
+| **🏆 Challenge G10** | **[tech-builder-brasil](https://alura-es-cursos.github.io/tech-builder-brasil/)** | Programa oficial Alura + Oracle Next Education (ONE) |
 
 ---
 
@@ -22,15 +30,16 @@ No **Challenge G10 — Tech Builder Brasil (Alura & Oracle Next Education)**, a 
 
 ---
 
-## Origem e Ecossistema
+## Origem e Ecossistema Integrado
 
-Este projeto evolui o showcase Typebot da Amazô, mantido separadamente:
+Este projeto conecta o pipeline de dados e IA com um ecossistema completo de presença digital:
 
-- [Repositório do showcase](https://github.com/lidimoura/amazo.ia-showcase)
-- [LP pública](https://lidimoura.github.io/amazo.ia-showcase/)
-- [Portfólio da Lídi com Link d'Água](https://link.encontrodagua.com/r/portifolio-lidimoura)
-- [Showcase do Challenge G10](https://lidimoura.github.io/amazo-g10-showcase/)
-- [Tech Builder Brasil — Challenge G10](https://alura-es-cursos.github.io/tech-builder-brasil/)
+- **[Showcase do Challenge G10 (LP)](https://lidimoura.github.io/amazo-g10-showcase/)** — Espaço abrangente e imersivo com o Caderno de Evidências, método Hub OS, linha do tempo da Amazô e inspeção de testes de QA.
+- **[Repositório do Showcase LP](https://github.com/lidimoura/amazo-g10-showcase)** — Código-fonte da interface web React/Vite/Tailwind do showcase.
+- **[Portfólio da Lídi no Link d'Água](https://link.encontrodagua.com/r/portifolio-lidimoura)** — Hub de conexões profissionais e serviços.
+- **[Showcase Histórico Amazô.IA (Typebot)](https://lidimoura.github.io/amazo.ia-showcase/)** — Versão de origem conversacional registrada como marco de evolução.
+- **[Repositório do Showcase Typebot](https://github.com/lidimoura/amazo.ia-showcase)** — Registro da origem do projeto.
+- **[Tech Builder Brasil — Challenge G10](https://alura-es-cursos.github.io/tech-builder-brasil/)** — Desafio oficial de IA Aplicada.
 
 ---
 
@@ -151,6 +160,7 @@ Abaixo estão os **6 casos de teste oficiais** executados e validados na Amazô.
 ### Bateria de QA — 6 cenários validados
 
 > Print da sessão completa de testes: identidade, catálogo, conceito da holding, roteamento, guardrails e anti-jailbreak.
+> 💡 *Para uma navegação interativa com scroll e inspeção detalhada de cada teste, acesse o **[Caderno de Evidências no Showcase](https://lidimoura.github.io/amazo-g10-showcase/#evidencias)**.*
 
 ![Teste QA completo — 6 cenários Amazô.guia](./assets/Teste-QA-Amazo-guia-g10.png)
 
