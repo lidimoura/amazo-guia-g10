@@ -138,6 +138,34 @@ Abaixo estão os **6 casos de teste oficiais** executados e validados na Amazô.
 
 ---
 
+## Demonstração
+
+### Deploy público — Amazô.guia respondendo com RAG
+
+> Print do deploy ativo em [amazo-guia-g10.streamlit.app](https://amazo-guia-g10.streamlit.app/) respondendo à pergunta **"Quem é Lídi Moura?"** com citação de fonte da base documental.
+
+![Deploy público da Amazô.guia — resposta com RAG ao vivo](./assets/Deploy-amazo-guia-G10-streamlit.png)
+
+---
+
+### Bateria de QA — 6 cenários validados
+
+> Print da sessão completa de testes: identidade, catálogo, conceito da holding, roteamento, guardrails e anti-jailbreak.
+
+![Teste QA completo — 6 cenários Amazô.guia](./assets/Teste-QA-Amazo-guia-g10.png)
+
+---
+
+### Vídeo de demonstração
+
+> 🎬 **Em breve** — gravação da sessão completa de QA será adicionada aqui após entrega.
+
+<!-- PLACEHOLDER: substituir pelo embed do YouTube após gravar o vídeo
+[![Assista à demonstração da Amazô.guia](https://img.youtube.com/vi/SEU_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=SEU_VIDEO_ID)
+-->
+
+---
+
 ## Como executar localmente
 
 ```bash
