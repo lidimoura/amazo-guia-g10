@@ -41,8 +41,9 @@ deploy:
   secret: "GROQ_API_KEY + OPENAI_API_KEY (via st.secrets)"
 
 showcase:
-  update_required: true
-  update_reason: "Deploy 100% estabilizado e testado. Bateria de 6 testes de QA documentada no README e no DEVLOG. Pronta para publicação no Showcase."
+  update_required: false
+  update_reason: "Sincronizado em 23/08/2026. Prints de deploy e QA adicionados à LP. evidenceItems e audit-strip atualizados para estado real: MVP funcional, 6 cenários QA validados, deploy público ativo. Commit 76b0fd5 no amazo-g10-showcase."
+  last_sync: "2026-08-23"
   public_evidence:
     - "Deploy público: https://amazo-guia-g10.streamlit.app/"
     - "Repositório: https://github.com/lidimoura/amazo-guia-g10"

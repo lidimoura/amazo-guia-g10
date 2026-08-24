@@ -14,7 +14,7 @@ O arquivo [`showcase-status.yml`](./showcase-status.yml) é o contrato público 
 | `rag.ingestion_status` e `rag.test_status` | Atualiza arquitetura, QA e evidências. | Publicar somente após validação registrada. |
 | `showcase.public_evidence` | Habilita prints, vídeos, logs sanitizados ou métricas aprovadas. | Nunca incluir PII, segredos ou dados de clientes. |
 
-## Estado atual (23/08/2026)
+## Estado atual (23/08/2026 — sincronizado)
 
 | Item | Status |
 |---|---|
@@ -26,7 +26,7 @@ O arquivo [`showcase-status.yml`](./showcase-status.yml) é o contrato público 
 | Fontes (PDF) | ✅ 9 PDFs gerados com links clicáveis |
 | Notebook Colab | ✅ `notebooks/amazo_sandbox.ipynb` |
 | QA (6 Cenários) | ✅ 100% testado e validado em produção |
-| Showcase LP | ⏳ Pronta para sincronização e publicação |
+| Showcase LP | ✅ Sincronizada em 23/08/2026 — prints de deploy e QA adicionados |
 
 ## Cenários de Teste de QA Validados
 

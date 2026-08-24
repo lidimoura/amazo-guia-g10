@@ -167,3 +167,20 @@ A sidebar foi redesenhada para focar no projeto e não duplicar o papel da Amaz�
 ### 3. Validação Funcional
 - Respostas testadas em produção com citações de fonte em conformidade com as diretrizes da Amazô.guia e Encontro d'Água Hub.
 
+---
+
+## Registro 005 — Sincronização do Showcase & Artefatos de Evidência
+
+**Data:** 23 de agosto de 2026  
+**Status:** LP Showcase sincronizada e publicada com evidências visuais.
+
+### 1. Atualização do Showcase (`amazo-g10-showcase`)
+- **Prints de Evidência:** Inclusão de `Deploy-amazo-guia-G10-streamlit.png` (deploy público ativo com citação de fonte) e `Teste-QA-Amazo-guia-g10.png` (bateria completa de 6 testes QA).
+- **UI/UX para Imagem Longa:** Como o print de QA cobre os 6 cenários verticalmente, foi desenvolvido um container com altura máxima (`420px`), `overflow-y` suave e setas direcionais de navegação (`↑` e `↓`) estilizadas na paleta temática (`#A3C944`), mantendo o design da LP preservado e responsivo.
+- **Auditoria de Status:** Seção de evidências e métricas atualizada de "ingestão pendente" para "9 docs ingeridos / RAG ativo / 6 QA validados ✅".
+- **Deploy do Showcase:** Commit `76b0fd5` sincronizado no branch `main` do GitHub Pages.
+
+### 2. Governança e Contrato
+- `showcase-status.yml` e `SHOWCASE_SYNC.md` atualizados com `update_required: false` e data de sincronização `2026-08-23`.
+
+
