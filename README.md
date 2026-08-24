@@ -100,14 +100,73 @@ Usuário → Streamlit Chat (Avatar 🌿) → RAG Chain
 
 ---
 
-## Fontes de Verdade
+## Desafios Técnicos & Engenharia de Resiliência
 
-9 documentos `.md` estruturados com metadados YAML em `data/sources/public/`:
+Durante o desenvolvimento e deploy contínuo da Amazô.guia, decisões técnicas e arquiteturais foram tomadas para contornar limitações de ambiente e garantir **100% de disponibilidade, custo zero e alta fidelidade de resposta**:
 
-- **Camada 1 — Atendimento público:** `01-perfil-lidi-moura`, `02-encontro-dagua-hub`, `03-catalogo-produtos-servicos`, `04-canais-e-roteamento`, `05-amazo-guia`
-- **Camada 2 — Complementar:** `01b-trajetoria-ampliada-lidi-moura`, `08-faq-publico`, `09-formacao-ferramentas`, `10-projetos-portfolio`
+```
+                                [Usuário no Streamlit]
+                                          │
+                                          ▼
+                            [Recuperação Semântica / RAG]
+                            ┌─────────────┴─────────────┐
+                            ▼                           ▼
+                 [HuggingFace MiniLM]         [Fallback TfidfEmbeddings]
+                 (Neural / Semântico)          (Blindagem de Runtime)
+                            └─────────────┬─────────────┘
+                                          │ Contexto injetado
+                                          ▼
+                   ┌──────────────────────────────────────────────┐
+                   │    TIER 1 (Primário): Groq openai/gpt-oss-120b │
+                   └──────────────────────┬───────────────────────┘
+                                          │ (em caso de falha/rate limit)
+                                          ▼
+                   ┌──────────────────────────────────────────────┐
+                   │    TIER 2 (Fallback 1): Groq openai/gpt-oss-20b│
+                   └──────────────────────┬───────────────────────┘
+                                          │ (em caso de contingência)
+                                          ▼
+                   ┌──────────────────────────────────────────────┐
+                   │   TIER 3 (Fallback 2): OpenAI gpt-4o-mini     │
+                   └──────────────────────────────────────────────┘
+```
 
-> Os documentos fonte estão disponíveis em Markdown (formato nativo do RAG) e em PDF na pasta `data/sources/pdf/` para atendimento às evidências do edital.
+### 1. Migração de LLM e Autenticação (Gemini → Groq)
+- **Desafio:** A credencial de teste disponibilizada no ecossistema Google utilizava o formato `AQ.Ab...` (OAuth2 token de serviço), que não é suportado pelo pacote `langchain_google_genai` (projetado exclusivamente para API Keys do Google AI Studio com prefixo `AIza...`), gerando exceções de autorização.
+- **Solução:** Migração estratégica para o provedor **Groq**, aproveitando sua infraestrutura LPU de baixíssima latência e tier gratuito para inferência com modelos abertos de ponta.
+
+### 2. Estabilização e Triplo Fallback Multi-Provedor
+- **Desafio:** Manter o agente 100% funcional mesmo diante de instabilidades de rede, rate limits de tier gratuito ou descontinuação de modelos.
+- **Solução:** Arquitetura em camadas com failover automático:
+  - **Tier 1 (Primário):** `openai/gpt-oss-120b` via Groq — raciocínio avançado, síntese precisa e tom acolhedor.
+  - **Tier 2 (Fallback Imediato):** `openai/gpt-oss-20b` via Groq — contingência ultrarrápida.
+  - **Tier 3 (Fallback de Segurança):** `gpt-4o-mini` via OpenAI — contingência multi-provedor ativada via secrets quando necessário.
+
+### 3. Resolução de Bug PyTorch Meta Tensor / Streamlit Cloud
+- **Desafio:** O provisionamento dinâmico do Streamlit Cloud instalava versões recentes do PyTorch (2.13/2.14) sob Python 3.14, gerando `NotImplementedError` ao alocar tensores de embeddings HuggingFace na CPU.
+- **Solução 1:** Fixação determinística do ambiente em **Python 3.11** via `.python-version` e `runtime.txt`.
+- **Solução 2 (Embeddings Blindados):** Criação da classe customizada `TfidfEmbeddings` em `src/embeddings.py` que implementa a interface `Embeddings` do LangChain. Se o modelo neural não puder ser inicializado, o fallback estatístico TF-IDF assume a busca semântica instantaneamente sem derrubar a aplicação.
+
+---
+
+## Fontes de Verdade & Governança
+
+A base documental da Amazô.guia foi estruturada seguindo rígidos critérios de curadoria e governança:
+
+- **9 documentos `.md` públicos** estruturados com metadados YAML em `data/sources/public/`:
+  - **Camada 1 — Atendimento público:** `01-perfil-lidi-moura`, `02-encontro-dagua-hub`, `03-catalogo-produtos-servicos`, `04-canais-e-roteamento`, `05-amazo-guia`
+  - **Camada 2 — Complementar:** `01b-trajetoria-ampliada-lidi-moura`, `08-faq-publico`, `09-formacao-ferramentas`, `10-projetos-portfolio`
+- **Artefatos em PDF:** 9 versões geradas em `data/sources/pdf/` com diagramação limpa e links clicáveis para atendimento integral às evidências do edital.
+
+### 🔒 Documentos Privados e Roadmap OCI (Oracle Cloud)
+
+Para proteger a integridade e confidencialidade da holding, duas fontes de verdade **não são expostas no repositório público**:
+- `06-politica-da-informacao.md` (regras internas de compliance, LGPD e limites de sigilo)
+- `07-processos.md` (fluxos operacionais internos da holding)
+
+#### Evolução Planejada para Infraestrutura Oracle:
+1. **OCI Object Storage com Pre-Authenticated Requests (PAR):** Armazenamento dos documentos confidenciais em buckets privados na nuvem Oracle. O agente baixa os arquivos em runtime através de tokens temporários seguros gerenciados pelos secrets da aplicação, permitindo atualização das políticas corporativas sem necessidade de commit no código.
+2. **Oracle Autonomous AI Database:** Avaliação da migração do banco vetorial em memória (`InMemoryVectorStore`) para o Autonomous Database com suporte nativo a **AI Vector Search**, permitindo persistência de longo prazo, particionamento por agente e escalabilidade para múltiplos produtos do ecossistema Encontro d'Água Hub.
 
 ---
 
