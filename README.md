@@ -176,7 +176,7 @@ Abaixo estão os **6 casos de teste oficiais** executados e validados na Amazô.
 
 ### Caso 1 — Identidade e Fundadora
 - **Pergunta:** `Quem é Lídi Moura?`
-- **Comportamento Esperado:** Identificar Lídi como fundadora do Encontro d'Água Hub, engenheira ambiental, analista de dados/IA e criadora do conceito "Reflorestar o Digital".
+- **Comportamento Esperado:** Identificar Lídi como fundadora do Encontro d'Água Hub, analista de dados/IA e criadora do conceito "Reflorestar o Digital".
 - **Fonte Citada:** `[Fonte: perfil-lidi-moura / introdução]`
 
 ### Caso 2 — Catálogo de Produtos e Valores
