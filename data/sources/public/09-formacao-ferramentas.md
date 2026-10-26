@@ -1,31 +1,33 @@
 ---
 document_id: formacao-ferramentas
-version: 2.1
-status: atual_em_evolucao
-last_updated: 2026-08-22
+version: 2.2
+status: atual
+last_updated: 2026-10-26
 owner: Lídia Moura
 audience: publico, recrutador
 visibility: publico
 confidentiality: publico
 ---
-# Formação e ferramentas
+# Formação, certificações e ferramentas
 
-## Uso prático
+## Certificações Oficiais
 
-Streamlit, Python, OCI, Antigravity, GitHub, Google Colab, Typebot, GPTMaker, ManyChat, Link d’Água e Perplexity.
+- **Kommo CRM:** Parceira Certificada Kommo.
+- **Oracle Cloud Infrastructure (OCI):** OCI Foundations Associate Certified & OCI AI Foundations Associate Certified.
+- **Business Intelligence:** Certificada em Power BI pela Fundação Bradesco.
+- **Programas ONE (Oracle Next Education + Alura):**
+  - **G9 Data Science (Concluído):** Líder Técnica da equipe campeã em 1º lugar do Hackathon G9 NoCountry.
+  - **G10 IA for Tech:** Engenharia de Agentes, RAG, LangChain/LangGraph, Bancos Vetoriais e OCI.
+  - **G11 IA for Business:** Estratégia de IA para negócios, automação comercial e produtividade.
 
-## Aplicável
+## Uso prático e domínio aplicado
 
-Power BI, APIs, automações, CRM e soluções low/no-code.
+Streamlit, Python, Power BI, GPTMaker, Kommo CRM, OCI, Antigravity, GitHub, Google Colab, RAG, LangChain/LangGraph (aplicado na Amazô.guia G10), Link d’Água (React/TypeScript/Supabase) e Perplexity.
 
 ## Em aprendizagem ou estudo
 
-SQL, MySQL, Docker, Databricks, RAG, LangChain, LangGraph e n8n.
+SQL, MySQL, Docker, Databricks e n8n.
 
-## Perplexity
+## Papel como Analista de Dados em Projetos de IA e CRM
 
-Usado para pesquisa, verificação, curadoria e documentação das fontes de verdade do Hub e da trajetória de Lídia.
-
-## OCI
-
-Lídia possui certificação OCI Associate Foundations e experiência prática de integração em projeto do G9-BR.
+Estruturação e higienização de documentos, regras de negócio, catálogos e FAQs para RAG e agentes conversacionais, além de pesquisas de satisfação automatizadas e dashboards executivos em Power BI e Streamlit.

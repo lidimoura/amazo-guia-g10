@@ -108,9 +108,92 @@ a:hover {
     color: #A3C944;
     opacity: 0.85;
 }
+
+/* Botão oficial de Agendamento de Consultoria (#8E24AA) */
+.btn-calendar-schedule {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 11px 18px;
+    background-color: #8E24AA !important;
+    color: #FFFFFF !important;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    border-radius: 12px;
+    text-decoration: none !important;
+    box-shadow: 0 8px 22px rgba(142, 36, 170, 0.38);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    margin-bottom: 8px;
+}
+.btn-calendar-schedule:hover {
+    opacity: 0.92 !important;
+    transform: translateY(-1px);
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.btn-wa-hub {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 16px;
+    background-color: rgba(163, 201, 68, 0.16) !important;
+    border: 1px solid rgba(163, 201, 68, 0.45);
+    color: #A3C944 !important;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 0.83rem;
+    border-radius: 12px;
+    text-decoration: none !important;
+    transition: background-color 0.2s ease;
+}
+.btn-wa-hub:hover {
+    background-color: rgba(163, 201, 68, 0.26) !important;
+    text-decoration: none !important;
+}
 </style>
 """, unsafe_allow_html=True)
 import logging
+import streamlit.components.v1 as components
+
+CALENDAR_EMBED_URL = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ39jIFaE98TdoKnOmL7sOYtM0lQHu7F-hcQm5JU8nYfeCbtzoUAJ7lQXXO9hHxYW-9hvOMejMAm?gv=true"
+CALENDAR_SHORT_URL = "https://calendar.app.google/qztptMcM3QYkeo539"
+WA_HUB_URL = "https://wa.me/5541992557600?text=Ol%C3%A1%20L%C3%ADdi%21%20%5BOrigem%3A%20Amaz%C3%B4.guia%20G10%20Streamlit%5D%20Conversei%20com%20a%20Amaz%C3%B4.guia%20e%20quero%20falar%20sobre%20as%20solu%C3%A7%C3%B5es%20do%20Encontro%20d%27%C3%81gua%20Hub."
+
+
+@st.dialog("📅 Agende sua consultoria — Encontro d'Água Hub", width="large")
+def abrir_modal_agendamento():
+    st.markdown(
+        "<p style='font-size:0.88rem; margin-bottom:10px;'>"
+        "Escolha o melhor dia e horário para sua <strong>Consultoria Inicial / Diagnóstico (R$ 180 · 60 min no Google Meet)</strong> com <strong>Lídi Moura</strong>:"
+        "</p>",
+        unsafe_allow_html=True,
+    )
+    components.html(
+        f"""
+        <div style="background-color: #ffffff; color-scheme: light; border-radius: 16px; overflow: hidden; border: 2px solid #8E24AA; box-shadow: 0 12px 32px rgba(0,0,0,0.35);">
+            <iframe
+                src="{CALENDAR_EMBED_URL}"
+                style="border: 0; width: 100%; height: 620px; background-color: #ffffff; color-scheme: light;"
+                frameborder="0"
+                scrolling="yes"
+            ></iframe>
+        </div>
+        """,
+        height=640,
+        scrolling=False,
+    )
+    st.markdown(
+        f"<div style='text-align:center; margin-top:6px;'>"
+        f"<a href='{CALENDAR_SHORT_URL}' target='_blank' style='font-size:0.8rem;'>"
+        f"↗ Preferir abrir em nova guia do Google Calendar</a></div>",
+        unsafe_allow_html=True,
+    )
 
 # === Carregamento do pipeline RAG (cacheado por sessao via session_state) ===
 def carregar_pipeline():
@@ -190,13 +273,24 @@ with st.sidebar:
     )
 
     st.markdown("---")
+    st.markdown("**Atendimento & Consultoria**")
+    if st.button("📅 Agende sua consultoria", use_container_width=True, type="primary"):
+        abrir_modal_agendamento()
+    st.markdown(
+        f'<a href="{WA_HUB_URL}" target="_blank" class="btn-wa-hub">'
+        '💬 WhatsApp Business do Hub</a>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("---")
     st.markdown("**Links Oficiais**")
     st.markdown("""
+- [Encontro d'Água Hub Digital](https://hub.encontrodagua.com/)
+- [Link d'Água (Cartões & QR Dinâmico)](https://link.encontrodagua.com/)
+- [Portfólio Lídi Moura](https://link.encontrodagua.com/r/portifolio-lidimoura)
 - [Challenge G10 (Alura / Oracle)](https://alura-es-cursos.github.io/tech-builder-brasil/)
 - [Repositório GitHub](https://github.com/lidimoura/amazo-guia-g10)
 - [Showcase do Challenge](https://lidimoura.github.io/amazo-g10-showcase/)
-- [Oracle Next Education (ONE)](https://www.oracle.com/br/education/oracle-next-education/)
-- [Alura](https://www.alura.com.br/)
 """)
 
     st.markdown("---")
@@ -223,14 +317,19 @@ n_chunks = st.session_state.n_chunks
 
 
 # === Cabeçalho principal ===
-st.markdown(
-    "<h1 style='font-family: DM Serif Display, serif; color: #A3C944; margin-bottom: 0;'>Amazô.guia</h1>",
-    unsafe_allow_html=True
-)
-st.markdown(
-    "<p style='color: #A3C944; opacity: 0.7; margin-top: 0;'>Guia digital do Encontro d'Água Hub</p>",
-    unsafe_allow_html=True
-)
+col_title, col_cta = st.columns([2.2, 1.3], vertical_alignment="center")
+with col_title:
+    st.markdown(
+        "<h1 style='font-family: DM Serif Display, serif; color: #A3C944; margin-bottom: 0;'>Amazô.guia</h1>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        "<p style='color: #A3C944; opacity: 0.7; margin-top: 0; margin-bottom: 0;'>Guia digital SDR-RAG do Encontro d'Água Hub</p>",
+        unsafe_allow_html=True
+    )
+with col_cta:
+    if st.button("📅 Agende sua consultoria", key="header_cal_btn", use_container_width=True):
+        abrir_modal_agendamento()
 st.markdown("---")
 
 

@@ -1,6 +1,6 @@
 # Fonte de Verdade — Amazô Guia G10
 
-Versão: 2.1 | Data: 22/08/2026 | Responsável: Lídia Moura
+Versão: 2.2 | Data: 26/10/2026 | Responsável: Lídia Moura
 
 ## Objetivo
 

@@ -183,4 +183,24 @@ A sidebar foi redesenhada para focar no projeto e não duplicar o papel da Amaz�
 ### 2. Governança e Contrato
 - `showcase-status.yml` e `SHOWCASE_SYNC.md` atualizados com `update_required: false` e data de sincronização `2026-08-23`.
 
+---
+
+## Registro 006 — Botão de Agendamento Google Calendar (R$ 180) & Alinhamento da Fonte de Verdade v2.2
+
+**Data:** 26 de outubro de 2026  
+**Status:** Concluído — Fonte de Verdade v2.2 alinhada com as LPs do Hub Digital e Link d'Água.
+
+### 1. Incorporação do Agendamento de Consultoria no Streamlit (`app.py`)
+- Adicionado botão **"📅 Agende sua consultoria"** na Sidebar e no Cabeçalho principal de `app.py`.
+- Implementado modal `@st.dialog` exibindo a agenda oficial do Google Calendar (`https://calendar.google.com/calendar/appointments/schedules/AcZssZ39jIFaE98TdoKnOmL7sOYtM0lQHu7F-hcQm5JU8nYfeCbtzoUAJ7lQXXO9hHxYW-9hvOMejMAm?gv=true`) com fundo branco sólido (`#ffffff`, `color-scheme: light`) e link direto `https://calendar.app.google/qztptMcM3QYkeo539`.
+- Adicionado botão direto para o **WhatsApp Business do Hub (`5541992557600`)** com tag de rastreamento `[Origem: Amazô.guia G10 Streamlit]`.
+
+### 2. Alinhamento da Fonte de Verdade RAG (`v2.2`) com Hub & Link d'Água
+- **`01-perfil-lidi-moura.md` & `09-formacao-ferramentas.md`:** Atualizadas as credenciais estratégicas de Lídi Moura (Analista de Dados, IA e Automação · Parceira Certificada Kommo · Certificada OCI Foundations Associate e OCI AI Foundations Associate · Certificada Power BI Fundação Bradesco · Líder Técnica campeã em 1º lugar do Hackathon G9 NoCountry em Data Science · ONE G9, G10 IA for Tech e G11 IA for Business).
+- **`03-catalogo-produtos-servicos.md` & `08-faq-publico.md`:** Alinhados os preços e posicionamentos:
+  - **Link d'Água (Serviço Concierge Entregue Pronto):** Cartão Simples (`R$ 80`), Cartão Personalizado Completo (`R$ 197` com QR Code dinâmico, galeria até 10 itens com 2 CTAs, banner, fundo, PIX e FAQ + 3 meses de suporte), Combo Link + Diagnóstico (`a partir de R$ 497`), LP Base (`a partir de R$ 690`) e LP Personalizada (`a partir de R$ 1.200`).
+  - **Encontro d'Água Hub:** Consultoria/Diagnóstico Inicial (`R$ 180`), Agente de IA 24/7 (`a partir de R$ 80/mês + implementação` via GPTMaker + Kommo), Licenças Oficiais Kommo CRM em Dólar (`US$ 15` Base, `US$ 25` Avançado, `US$ 45` Empresarial por usuário/mês), Nova Prova d'Água (Teste Grátis Guiado Kommo 14 dias) e Estruturação de Base de Conhecimento do zero como Analista de Dados.
+- **`04-canais-e-roteamento.md` & `src/prompts.py`:** Incluída a Agenda Oficial do Google Calendar (`https://calendar.app.google/qztptMcM3QYkeo539`) e o WhatsApp Business (`5541992557600`) com identificação de origem.
+
+
 
