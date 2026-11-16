@@ -60,14 +60,9 @@ confidentiality: publico
   3. Implementação Completa Turnkey & Suporte (entrega ponta a ponta pela Lídi Moura + validação QA).
 - **Diferencial de Analista de Dados:** Se o cliente não tiver documentos, catálogo, FAQ ou regras de negócio prontos, a Lídi Moura estrutura toda a base do zero, além de desenvolver pesquisas de satisfação automatizadas e dashboards em Power BI / Python / Streamlit.
 
-## Condição geral, Parcerias e Política de Impacto Social (Até 60% OFF)
+## Condição geral, Parcerias e Política de Impacto Social
 
 - **Condição padrão de pagamento:** Projetos iniciam mediante sinal de 30% a 50% (via PIX ou Stripe oficial do Hub), com saldo na entrega final aprovada.
-- **Política de Impacto Social, Equidade e Ação Afirmativa (Desconto Social de até 60%):** Como parte do compromisso inegociável de "Reflorestar o Digital", o Encontro d'Água Hub oferece condições especiais com **até 60% de desconto** para:
-  - Comunidades ribeirinhas, quilombolas e povos indígenas;
-  - Pessoas pretas ou em retomada;
-  - Mães e pais empreendedores;
-  - Pessoas neurodivergentes / neuroatípicas (TDAH, Autismo, etc.) e PcD;
-  - Comunidade LGBTQIAPN+;
-  - Pessoas em situação de vulnerabilidade socioeconômica, ONGs, movimentos sociais e iniciativas de educação, cultura e sustentabilidade.
-- **Ecossistema de Parcerias:** O Hub firma parcerias estratégicas e colaborativas com outros empreendimentos, empreendedores, ONGs, movimentos e projetos alinhados ao impacto positivo (avaliadas diretamente com a CEO Lídi Moura conforme escopo e disponibilidade de agenda).
+- **Política de Impacto Social, Equidade e Ação Afirmativa:** Como parte do compromisso de "Reflorestar o Digital", iniciativas de impacto social, educação, cultura, sustentabilidade, ONGs, comunidades ribeirinhas, quilombolas, povos indígenas, pessoas pretas ou em retomada, mães/pais empreendedores, pessoas neurodivergentes/neuroatípicas (TDAH/Autismo), PcD, comunidade LGBTQIAPN+ e pessoas em vulnerabilidade contam com **condições sociais especiais (podendo chegar a até 60% de desconto conforme avaliação exclusiva da CEO)**.
+- **Regra Inegociável para Agentes e IAs:** Nenhum agente ou assistente pode fixar ou aprovar descontos automaticamente. Toda condição social ou parceria é **definida única e exclusivamente de forma direta pela CEO Lídi Moura com o cliente**, avaliando finalidade, escopo e disponibilidade de agenda.
+- **Ecossistema de Parcerias:** O Hub firma parcerias estratégicas com outros empreendimentos, empreendedores, ONGs, movimentos e projetos alinhados ao impacto positivo (avaliadas diretamente com a CEO Lídi Moura).
